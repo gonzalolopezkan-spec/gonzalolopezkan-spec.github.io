@@ -1,0 +1,156 @@
+/* ==========================================================================
+   LetsBoxIt — assets/pg-gracias.css
+   Página gracias.html. Dueño exclusivo de este fichero.
+   Usa los tokens/componentes de assets/styles.css (capa v2): lb-section,
+   lb-container, lb-eyebrow, lb-h1, lb-lead, lb-btn, lb-steps/lb-step,
+   lb-link-arrow. No toca el <script> inline (sessionStorage lbi_reserva,
+   fbq/gtag, href="/mi-reserva/") — solo presentación.
+   Momento visual propio de esta página: un "sello de recogida" circular
+   (no es .lb-stamp, que el contrato reserva a contexto de precio/etiqueta).
+   ========================================================================== */
+
+/* Arreglo de contención (solo afecta a esta página, no toca ficheros
+   compartidos): assets/site.js marca .lb-reveal visto añadiendo la clase
+   "is-visible" (mecanismo antiguo de assets/lb-chrome.css), pero la regla de
+   ocultación de assets/styles.css (capa v2, "html.lb-js .lb-reveal") tiene
+   más especificidad que ".lb-reveal.is-visible" y gana igual, dejando el
+   contenido en opacity:0 si el IntersectionObserver de assets/lb-ui.js no
+   llega a añadir "is-in" a tiempo (p.ej. cuando IntersectionObserver no
+   dispara: pestaña en segundo plano, algunos entornos de test/preview).
+   Esta regla sube la especificidad para que CUALQUIERA de los dos
+   mecanismos (is-in o is-visible) revele el contenido — nunca se queda
+   invisible. Ver contrato: ".lb-reveal: visible por defecto SIEMPRE". */
+html.lb-js:not(.lb-reduced-motion) .lb-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Red de seguridad adicional, solo CSS: si ningún IntersectionObserver llega
+   a disparar (algunos entornos de test/preview lo dejan "pending" para
+   siempre; el único salvavidas compartido es el setTimeout de 2500ms de
+   site.js), esta animación fuerza la visibilidad a los 900ms sin depender
+   de ninguna clase JS. No compite con la transición normal: si ya se reveló
+   antes, llega al mismo valor final sin efecto visible. */
+html.lb-js:not(.lb-reduced-motion) .lb-reveal {
+  animation: pg-gracias-reveal-safety 0s linear .9s forwards;
+}
+@keyframes pg-gracias-reveal-safety { to { opacity: 1; transform: none; } }
+
+.gracias-hero { text-align: center; padding-bottom: clamp(40px, 6vw, 72px); }
+.gracias-hero .lb-container { max-width: 720px; }
+
+.gracias-stamp {
+  width: 108px; height: 108px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  border: 2.5px dashed var(--kraft);
+  display: grid; place-items: center;
+  position: relative;
+  animation: gracias-pop 520ms var(--lb-ease, cubic-bezier(.16,1,.3,1)) both;
+}
+.gracias-stamp::before {
+  content: "";
+  position: absolute; inset: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.35);
+}
+.gracias-stamp svg { color: #fff; position: relative; z-index: 1; }
+@keyframes gracias-pop {
+  0% { transform: scale(.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gracias-stamp { animation: none; }
+}
+
+.gracias-hero .lb-eyebrow { justify-content: center; color: rgba(255,255,255,.6); }
+.gracias-hero .lb-eyebrow::before { background: var(--kraft); }
+.gracias-hero .lb-h1 { font-size: clamp(34px, 5vw, 54px); margin-bottom: 16px; }
+.gracias-hero .lb-lead { margin: 0 auto; color: rgba(255,255,255,.78); }
+.gracias-confirm-note {
+  margin: 16px auto 0;
+  max-width: 46ch;
+  font-size: .88rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.5;
+}
+
+.gracias-wa-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  margin-top: 32px;
+}
+.btn-wa {
+  display: inline-flex; align-items: center; gap: 12px;
+  /* Verde WhatsApp oscurecido a propósito: #25D366 con texto blanco da
+     ~2:1 de contraste (falla AA); este tono mantiene el reconocible verde
+     WhatsApp y pasa 4.5:1 con blanco. */
+  background: #0C7C59; color: #fff;
+  border-radius: var(--lb-radius-pill);
+  min-height: 54px;
+  padding: 0 32px;
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 20px rgba(12,124,89,.32), 0 1px 3px rgba(0,0,0,.14);
+  transition: background 160ms var(--lb-ease), transform 120ms var(--lb-ease), box-shadow 160ms var(--lb-ease);
+}
+.btn-wa:hover { background: #095C43; transform: translateY(-2px); box-shadow: 0 8px 26px rgba(12,124,89,.4), 0 1px 3px rgba(0,0,0,.1); }
+.btn-wa:active { transform: translateY(0); }
+.btn-wa:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.btn-wa svg { flex-shrink: 0; }
+.gracias-wa-hint { font-size: .85rem; color: rgba(255,255,255,.5); max-width: 320px; line-height: 1.5; margin: 0; }
+
+/* ---------- "Qué pasa ahora" — reutiliza .lb-steps/.lb-step con numeración ---------- */
+/* Esta página tiene 4 pasos, no 3: el componente compartido .lb-steps
+   (assets/styles.css) fija repeat(3,1fr) desde 860px, así que el paso 4
+   ("En septiembre") caía solo en una segunda fila con dos huecos en blanco
+   a su derecha. Sobrescribimos solo aquí (nunca en styles.css, que es de
+   otro agente y sí tiene razón para 3 pasos en otras páginas): 2×2
+   equilibrado desde 860px, una sola fila de 4 desde 1200px. */
+@media (min-width: 860px) {
+  .gracias-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1200px) {
+  .gracias-steps { grid-template-columns: repeat(4, 1fr); }
+}
+.gracias-steps .lb-step { position: relative; }
+.gracias-steps .lb-step__num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--teal-tint); color: var(--teal-deep);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.gracias-reassurance {
+  text-align: center; margin-top: clamp(28px, 4vw, 44px);
+  font-size: .92rem; color: var(--ink-3);
+}
+
+/* ---------- Compartir con la familia / mi reserva ---------- */
+.gracias-more {
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+  margin-top: clamp(36px, 5vw, 56px);
+}
+@media (min-width: 760px) { .gracias-more { grid-template-columns: 1fr 1fr; } }
+.gracias-more-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--lb-radius-field);
+  padding: 26px 24px;
+}
+.gracias-more-card h3 { margin-bottom: 8px; }
+.gracias-more-card p { color: var(--ink-2); font-size: .93rem; line-height: 1.5; margin-bottom: 20px; }
+.gracias-more-card .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.gracias-contact {
+  text-align: center; margin-top: clamp(36px, 5vw, 52px);
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid var(--line);
+}
+.gracias-contact p { color: var(--ink-3); font-size: .9rem; margin-bottom: 14px; }
+.gracias-contact .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; }
+.gracias-contact a { color: var(--teal); font-weight: 600; font-size: .92rem; min-height: 44px; display: inline-flex; align-items: center; }
+.gracias-contact a:hover { color: var(--teal-deep); }
+
+.gracias-back {
+  display: flex; justify-content: center; margin-top: clamp(28px, 4vw, 40px);
+}

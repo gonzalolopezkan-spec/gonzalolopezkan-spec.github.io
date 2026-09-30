@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="es">
+<head><meta name="robots" content="noindex, nofollow"><script>window.fbq=function(){};window.fbq.loaded=true;window.fbq.version="2.0";window.fbq.queue=[];window._fbq=window.fbq;</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1158477805457211');
+fbq('track', 'PageView');
+</script>
+
+<!-- End Meta Pixel Code -->
+<link rel="icon" type="image/x-icon" href="/faviconletsboxit/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/faviconletsboxit/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/faviconletsboxit/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/faviconletsboxit/apple-touch-icon.png">
+<link rel="manifest" href="/faviconletsboxit/site.webmanifest">
+<meta name="theme-color" content="#1a9d8e">
+<link rel="canonical" href="https://www.letsboxit.es/promo">
+<title>Reserva tu almacén de verano por 20€ | LetsBoxIt</title>
+<meta name="description" content="Recogemos, guardamos y te devolvemos tus cosas este verano. Reserva online por 20€, a deducir del total, con cancelación gratuita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:ital,wght@0,400..700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css?v=v2a">
+<link rel="stylesheet" href="/assets/legal.css">
+<link rel="stylesheet" href="/assets/cookie-consent.css">
+<style>
+:root {
+  --promo: #E5531F;
+  --promo-deep: #C7421A;
+  --mint: #E7F3F0;
+  --lila: #DEBBF7;
+}
+
+/* ───── Page shell: mobile-first, capped to 480px even on desktop ───── */
+body { background: var(--bg-elev-3); }
+.page-shell {
+  max-width: 480px; margin: 0 auto;
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
+}
+@media (min-width: 481px) {
+  .page-shell { box-shadow: 0 0 0 1px var(--border), 0 24px 64px rgba(10,12,16,0.10); }
+}
+
+section { padding: 40px 0; }
+section + section { border-top: 1px solid var(--border); }
+.section-soft { background: var(--mint); }
+h2 { font-size: clamp(24px, 6vw, 30px); }
+
+/* ───── Top banner (sticky) ───── */
+.promo-topbar {
+  position: sticky; top: 0;
+  width: 100%; max-width: 480px; margin: 0 auto;
+  z-index: 500;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.promo-topbar-inner {
+  height: 60px; padding: 0 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.promo-topbar-cta {
+  min-height: 44px; padding: 10px 16px; font-size: 13px;
+}
+.promo-topbar .brand { font-weight: 700; text-decoration: none; color: inherit; }
+
+/* ───── Bottom bar (fixed) ───── */
+.promo-bottombar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: min(100%, 480px);
+  z-index: 400;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 56px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--promo);
+  color: #FFFFFF;
+  font-family: var(--font-display); font-weight: 700; font-size: 15px;
+  letter-spacing: -0.01em; text-align: center;
+  box-shadow: 0 -6px 24px rgba(199,66,26,0.30);
+  transition: background 160ms var(--ease-out);
+}
+.promo-bottombar:hover { background: var(--promo-deep); }
+.promo-bottombar s { opacity: 0.75; font-weight: 500; }
+.promo-bottombar svg { flex-shrink: 0; }
+/* Oferta caducada (31-jul-2026): .precio-anterior/.precio-promo ya se ocultan vía
+   assets/styles.css, pero esta landing tiene además la píldora "Oferta exclusiva
+   Instagram" y el "50" tachado del CTA fijo, que no llevan esas clases globales. */
+body.oferta-caducada .pill-promo { display: none; }
+body.oferta-caducada .promo-bottombar s { display: none; }
+body.oferta-caducada .step-body s { display: none; }
+
+/* ───── Hero ───── */
+.hero-promo { padding-top: 32px; position: relative; overflow: hidden; }
+.hero-promo .bg-grid { z-index: 0; }
+.hero-promo-inner { position: relative; z-index: 1; }
+.hero-promo h1 {
+  font-size: clamp(28px, 7.5vw, 34px);
+  margin: 16px 0 14px;
+}
+/* El segmento teal del título se muestra como color sólido (sin degradado
+   recortado): quitamos también el fondo de .accent-text (background: none)
+   porque, al cambiar background-clip a border-box, ese degradado dejaría de
+   recortarse al texto y se vería como un bloque de color detrás de las
+   palabras — justo el efecto de "resaltado" que no queremos. */
+.hero-promo h1 .accent-text {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--accent-deep);
+  color: var(--accent-deep);
+}
+.hero-promo .lead { margin-bottom: 24px; }
+
+.promo-perks { display: flex; flex-direction: column; gap: 12px; }
+.promo-perk {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--mint); border-radius: var(--radius);
+  padding: 16px;
+}
+.promo-perk-icon {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 999px;
+  background: #FFFFFF; color: var(--accent);
+  display: grid; place-items: center;
+  box-shadow: 0 1px 2px rgba(10,12,16,0.06);
+}
+.promo-perk-icon + span { display: block; }
+.promo-perk-title { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--text); display: block; }
+.promo-perk-sub { font-size: 13px; color: var(--text-3); margin-top: 2px; display: block; }
+
+/* ───── Oferta ───── */
+.oferta-card {
+  position: relative;
+  background: var(--mint);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px 24px;
+  margin-top: 32px;
+  overflow: visible;
+}
+.oferta-badge {
+  position: absolute; top: -34px; right: 18px;
+  width: 64px; height: 64px;
+}
+.pill-promo {
+  display: inline-flex; align-items: center;
+  background: var(--promo); color: #FFFFFF;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em;
+  padding: 6px 12px; border-radius: 999px;
+  margin-bottom: 14px;
+}
+.oferta-card h2 { margin-bottom: 6px; }
+.oferta-precio { display: flex; align-items: baseline; gap: 10px; margin: 4px 0 10px; flex-wrap: wrap; }
+.oferta-precio .precio-anterior { font-size: 18px; color: var(--promo); }
+.oferta-precio-actual {
+  font-family: var(--font-display); font-weight: 700; font-size: 48px;
+  line-height: 1; color: var(--accent);
+}
+.oferta-nota { font-size: 16px; color: var(--text-2); margin-bottom: 20px; }
+.oferta-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.oferta-item { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; color: var(--text-2); line-height: 1.5; }
+.oferta-item svg { flex-shrink: 0; color: var(--accent); margin-top: 2px; }
+.oferta-item strong { color: var(--text); }
+
+.franja {
+  position: relative;
+  background: var(--accent);
+  color: #FFFFFF;
+  border-radius: var(--radius);
+  padding: 20px;
+  padding-right: 96px;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 17px; line-height: 1.35;
+  overflow: hidden;
+}
+/* Variante con imagen (caja + paracaídas): más hueco a la derecha y alto
+   mínimo para que la imagen quepa entera, sin recortarse. Se escopa con
+   ".oferta-card .franja" (en vez de tocar ".franja" a secas) para no afectar
+   a la franja de solo texto del CTA final, que no vive dentro de .oferta-card. */
+.oferta-card .franja {
+  padding-right: 108px;
+  min-height: 136px;
+}
+.franja img {
+  position: absolute; right: 12px; bottom: 12px;
+  width: 76px; height: auto;
+}
+
+/* ───── Precios ───── */
+.precios-hd { margin-bottom: 6px; }
+.precios-sub { font-size: 13px; color: var(--text-3); margin-bottom: 20px; }
+.precios-table-wrap { position: relative; overflow: visible; }
+.precios-boxes { position: absolute; top: -48px; right: 4px; width: 84px; height: auto; z-index: 2; }
+.precios-table { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; box-shadow: 0 1px 2px rgba(10,12,16,0.05); }
+.precios-table thead th {
+  background: var(--accent); color: #FFFFFF;
+  font-family: var(--font-display); font-weight: 700; font-size: 13px;
+  text-align: left; padding: 12px 16px;
+}
+.precios-table tbody td {
+  padding: 12px 16px; font-size: 16px; color: var(--text-2);
+  border-bottom: 1px solid var(--border); background: #FFFFFF;
+}
+.precios-table tbody tr:nth-child(even) td { background: var(--bg-elev-1); }
+.precios-table tbody tr:last-child td { border-bottom: none; }
+.precios-table td.precio-col { font-weight: 700; color: var(--text); font-family: var(--font-mono); }
+.precios-arrow { position: absolute; right: 24px; top: 58px; bottom: 14px; width: 2px; background: var(--promo); border-radius: 2px; z-index: 1; }
+.precios-arrow::after { content: ''; position: absolute; left: 50%; bottom: -2px; width: 10px; height: 10px; border-right: 2px solid var(--promo); border-bottom: 2px solid var(--promo); transform: translateX(-50%) rotate(45deg); }
+.precios-nota { font-size: 13px; color: var(--text-3); margin-top: 16px; }
+
+/* ───── Así funciona ───── */
+.stepper { display: flex; flex-direction: column; }
+.step-item { display: flex; gap: 16px; position: relative; padding-bottom: 32px; }
+.step-item:last-child { padding-bottom: 0; }
+.step-rail-line {
+  position: absolute; left: 21px; top: 44px; bottom: 0;
+  width: 2px; background: var(--accent-soft);
+}
+.step-item:last-child .step-rail-line { display: none; }
+.step-circle {
+  flex-shrink: 0; width: 44px; height: 44px; border-radius: 999px;
+  border: 2px solid var(--accent); color: var(--accent);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  background: var(--bg); position: relative; z-index: 1;
+}
+.step-body h3 { font-size: 17px; margin-bottom: 6px; }
+.step-body p { font-size: 16px; line-height: 1.55; }
+.step-img { margin-top: 12px; width: 96px; height: auto; border-radius: var(--radius-sm); }
+
+/* ───── Carrusel ───── */
+.carousel { position: relative; margin-top: 8px; }
+.carousel-viewport { overflow: hidden; border-radius: var(--radius-lg); }
+.carousel-track {
+  display: flex; transition: transform 300ms var(--ease-out);
+  touch-action: pan-y; cursor: grab; user-select: none;
+}
+.carousel-track.dragging { cursor: grabbing; }
+.carousel-track img { -webkit-user-drag: none; user-select: none; pointer-events: none; }
+.carousel-slide { flex: 0 0 100%; padding: 0 4px; box-sizing: border-box; }
+.persona-card {
+  position: relative;
+  background: var(--accent);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  display: flex; align-items: flex-end; gap: 14px;
+  padding: 44px 18px 24px;
+  margin-top: 56px;
+  min-height: 176px;
+}
+.persona-card .persona-text { flex: 1 1 auto; min-width: 0; }
+.persona-card img {
+  flex: 0 0 auto;
+  width: 104px; height: auto;
+  align-self: flex-start;
+  margin-top: -56px;
+}
+.persona-card h3 { color: #FFFFFF; font-size: 21px; line-height: 1.2; margin-bottom: 8px; hyphens: auto; overflow-wrap: break-word; }
+.persona-card p { color: rgba(255,255,255,0.92); font-size: 16px; line-height: 1.5; }
+
+.carousel-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
+.carousel-arrow {
+  width: 44px; height: 44px; border-radius: 999px;
+  border: 1px solid var(--border-strong); background: var(--bg);
+  color: var(--text-2); display: grid; place-items: center;
+  transition: background 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+}
+.carousel-arrow:hover { background: var(--accent-soft); color: var(--accent-deep); border-color: var(--accent); }
+/* Dot visible pequeño, pero área táctil real de 44x44 vía el propio botón */
+.carousel-dots { display: flex; gap: 4px; }
+.carousel-dot {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  background: none; border: none; padding: 0;
+}
+.carousel-dot::after {
+  content: ''; width: 8px; height: 8px; border-radius: 999px;
+  background: var(--border-strong);
+  transition: background 160ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.carousel-dot[aria-current="true"]::after { background: var(--accent); transform: scale(1.25); }
+
+/* ───── Opiniones (misma estructura .review que index.html; no vive en styles.css) ───── */
+.promo-reviews { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+.review {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: #FFFFFF;
+  display: flex; flex-direction: column; gap: 18px;
+  box-shadow: 0 1px 2px rgba(10,12,16,0.03);
+}
+.review-stars { color: var(--accent); display: flex; gap: 2px; font-size: 14px; letter-spacing: 2px; }
+.review-quote { color: var(--text); font-size: 16px; line-height: 1.55; letter-spacing: -0.01em; }
+.review-author { display: flex; align-items: center; gap: 12px; }
+.avatar { width: 36px; height: 36px; border-radius: 999px; display: grid; place-items: center; font-weight: 600; font-size: 13px; background: var(--accent-soft); border: 1px solid rgba(27,162,160,0.18); color: var(--accent-deep); }
+.review-name { font-size: 13px; font-weight: 500; }
+.review-meta { font-size: 12px; color: var(--text-3); font-family: var(--font-mono); }
+
+/* ───── CTA final ───── */
+.cta-final-card {
+  background: var(--mint); border-radius: var(--radius-lg);
+  padding: 28px 20px; margin-top: 20px; text-align: center;
+}
+.cta-final-card .oferta-precio { justify-content: center; }
+.cta-final-card p { font-size: 16px; margin-bottom: 20px; }
+.cta-final-or { text-align: center; color: var(--text-3); font-family: var(--font-mono); font-size: 13px; margin: 24px 0; position: relative; }
+.cta-doubt-card {
+  border: 1.5px solid var(--accent); border-radius: var(--radius-lg);
+  padding: 28px 20px; text-align: center;
+}
+.cta-doubt-card h3 { font-size: 24px; margin-bottom: 10px; }
+.cta-doubt-card p { font-size: 16px; margin-bottom: 20px; }
+.btn-full { width: 100%; justify-content: center; }
+.btn-promo {
+  background: var(--promo); color: #FFFFFF;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset, 0 12px 28px rgba(229,83,31,0.30);
+}
+.btn-promo:hover { background: var(--promo-deep); transform: translateY(-1px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track { transition: none !important; }
+}
+
+/* ═════════ Escritorio (≥900px): layout de nivel intermedio ═════════
+   Todo lo que sigue amplía la versión móvil-first de arriba; nada de
+   lo anterior se toca ni se sobreescribe por debajo de este ancho. */
+@media (min-width: 900px) {
+  body { background: var(--bg); }
+  .page-shell { max-width: 1040px; box-shadow: none; }
+
+  /* Barra superior a todo el ancho, contenido centrado */
+  .promo-topbar { max-width: none; width: 100%; }
+  .promo-topbar-inner { max-width: 1040px; margin: 0 auto; height: 66px; }
+  .promo-topbar-cta { font-size: 14px; }
+
+  /* Barra inferior a todo el ancho */
+  .promo-bottombar { max-width: none; left: 0; right: 0; transform: none; width: 100%; font-size: 17px; }
+
+  section { padding: 60px 0; }
+
+  /* HERO a 2 columnas: texto | perks */
+  .hero-promo-inner { display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: center; }
+  .hero-promo h1 { font-size: clamp(38px, 4vw, 50px); }
+  .hero-promo .lead { margin-bottom: 0; }
+  .promo-perks { align-self: center; }
+
+  /* Secciones de una columna: centradas y algo más anchas */
+  .sec-oferta .container { max-width: 760px; }
+  .sec-precios .container { max-width: 680px; }
+  .sec-pasos .container { max-width: 680px; }
+  .sec-carrusel .container { max-width: 700px; }
+
+  /* OPINIONES a 2 columnas */
+  .sec-reviews .container { max-width: 940px; }
+  .promo-reviews { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* CTA FINAL a 2 columnas (tarjeta | "o" | tarjeta) */
+  .sec-cta .container { max-width: 940px; }
+  .cta-final-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; margin-top: 24px; }
+  .cta-final-card, .cta-doubt-card { margin-top: 0; height: 100%; }
+  .cta-final-or { margin: 0; }
+}
+
+/* Hover de elevación (solo dispositivos con ratón) */
+@media (hover: hover) and (min-width: 900px) {
+  .promo-perk, .review, .cta-final-card, .cta-doubt-card {
+    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+  }
+  .promo-perk:hover, .review:hover, .cta-final-card:hover, .cta-doubt-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(10,12,16,0.10);
+  }
+}
+
+/* ───── Footer legal mínimo ───── */
+.promo-footer {
+  background: var(--bg);
+  color: var(--text-3);
+  font-size: 12px;
+  text-align: center;
+  padding: 24px 16px;
+  padding-bottom: max(24px, calc(56px + env(safe-area-inset-bottom)));
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+}
+.promo-footer nav { margin-bottom: 10px; }
+.promo-footer nav a {
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 160ms var(--ease-out);
+}
+.promo-footer nav a:hover { color: var(--text); }
+.promo-footer p { margin: 0; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<header class="promo-topbar">
+  <div class="promo-topbar-inner">
+    <a class="brand" href="/" aria-label="LetsBoxIt — inicio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5v-9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 7.5L12 12m0 0l9-4.5M12 12v9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </span>
+      LetsBoxIt
+    </a>
+    <a href="https://wa.me/34664530600" class="btn btn-accent promo-topbar-cta" aria-label="Infórmate por WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21l1.65-4.5A8.5 8.5 0 1 1 7.5 19.35L3 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      INFÓRMATE
+    </a>
+  </div>
+</header>
+
+<main class="page-shell">
+
+  <!-- 1) HERO -->
+  <section class="hero-promo">
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="container hero-promo-inner">
+      <div class="hero-text">
+        <span class="chip" style="border-color:var(--accent); color:var(--accent-deep);">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5v-9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Recogida, almacenaje y entrega
+        </span>
+        <h1 id="heroTitle">Tus cosas en buenas manos <span class="accent-text">mientras subalquilas tu piso</span></h1>
+        <p class="lead">Recogemos y guardamos tus objetos de valor, ropa y muebles mientras estás fuera de casa.</p>
+      </div>
+
+      <div class="promo-perks">
+        <div class="promo-perk">
+          <span class="promo-perk-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <span>
+            <span class="promo-perk-title">Reserva en 2 min.</span>
+            <span class="promo-perk-sub">con cancelación gratuita</span>
+          </span>
+        </div>
+        <div class="promo-perk">
+          <span class="promo-perk-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          <span>
+            <span class="promo-perk-title">Pago transparente</span>
+            <span class="promo-perk-sub">Solo pagas por las cajas que guardas</span>
+          </span>
+        </div>
+        <div class="promo-perk">
+          <span class="promo-perk-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span>
+            <span class="promo-perk-title">Todo incluido</span>
+            <span class="promo-perk-sub">Seguro, embalaje, almacén y transporte</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) OFERTA -->
+  <section class="sec-oferta">
+    <div class="container">
+      <div class="oferta-card">
+        <img class="oferta-badge" src="/assets/img/landing/promo.png" width="947" height="977" alt="Insignia 3D naranja con el símbolo de descuento" loading="lazy">
+        <span class="pill-promo">Oferta exclusiva Instagram</span>
+        <h2>Reserva online</h2>
+        <div class="oferta-precio">
+          <span class="precio-anterior">antes 50€</span>
+          <span class="oferta-precio-actual">por 20€</span>
+        </div>
+        <p class="oferta-nota">que se descuentan del importe total. El resto, el día de la recogida según el n.º total de cajas.</p>
+        <div class="oferta-list">
+          <div class="oferta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><strong>Te olvidas de todo:</strong> recogida, transporte, custodia y entrega final.</span>
+          </div>
+          <div class="oferta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><strong>Seguridad total:</strong> cada caja se numera e incluye en la póliza de seguros.</span>
+          </div>
+          <div class="oferta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><strong>Flexibilidad:</strong> coordinación por WhatsApp de fecha, hora y dirección.</span>
+          </div>
+          <div class="oferta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><strong>Cancelación gratuita:</strong> hasta 14 días antes de la recogida.</span>
+          </div>
+        </div>
+        <div class="franja">
+          Sin cargar con cosas. Sin extravíos. Sin pagar de más.
+          <img src="/assets/img/landing/caja-voladora.png" width="464" height="586" alt="Caja de cartón cayendo con un paracaídas rojo y blanco" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) PRECIOS -->
+  <section class="section-soft sec-precios">
+    <div class="container">
+      <div class="precios-hd">
+        <h2>Precios claros y <span class="accent-text">descuento por volumen</span></h2>
+      </div>
+      <p class="precios-sub">Caja estándar 60×40×30 cm</p>
+      <div class="precios-table-wrap">
+        <img class="precios-boxes" src="/assets/img/landing/cajas.png" width="397" height="480" alt="Pila de cajas de cartón" loading="lazy">
+        <table class="precios-table">
+          <thead>
+            <tr><th scope="col">Volumen</th><th scope="col">Precio</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1-4 cajas</td><td class="precio-col">39€/ud.</td></tr>
+            <tr><td>5-9 cajas</td><td class="precio-col">33€/ud.</td></tr>
+            <tr><td>10-15 cajas</td><td class="precio-col">30€/ud.</td></tr>
+            <tr><td>+15 cajas</td><td class="precio-col">28€/ud.</td></tr>
+          </tbody>
+        </table>
+        <span class="precios-arrow" aria-hidden="true"></span>
+      </div>
+      <p class="precios-nota">También guardamos bultos sueltos, como sillas, sofás, maletas o cómodas</p>
+    </div>
+  </section>
+
+  <!-- 4) ASÍ FUNCIONA -->
+  <section class="sec-pasos">
+    <div class="container">
+      <h2>Así funciona: <span class="accent-text">simple, rápido y por WhatsApp</span></h2>
+      <div class="stepper" style="margin-top:28px">
+        <div class="step-item">
+          <div class="step-rail-line" aria-hidden="true"></div>
+          <span class="step-circle">1</span>
+          <div class="step-body">
+            <h3>Reserva online en 2 min.</h3>
+            <p>Rellenas el formulario, pagas <s>50€</s> 20€ (a deducir del total) y te escribimos en menos de 24 h para cerrar detalles.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-rail-line" aria-hidden="true"></div>
+          <span class="step-circle">2</span>
+          <div class="step-body">
+            <h3>Recogemos las cosas en tu puerta</h3>
+            <p>Nos llevamos lo que has empaquetado con nuestro embalaje de cortesía y lo guardamos numerado en un almacén seguro.</p>
+            <img class="step-img" src="/assets/img/landing/recogida.png" width="564" height="739" alt="Carretilla naranja cargada de cajas" loading="lazy">
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-circle">3</span>
+          <div class="step-body">
+            <h3>Te lo llevamos donde y cuando digas</h3>
+            <p>Almacenamos tus cosas hasta 3 meses con seguro y coordinamos la devolución por WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) CARRUSEL: ¿PARA QUIÉN ES? -->
+  <section class="section-soft sec-carrusel">
+    <div class="container">
+      <h2>¿Para quién es <span class="accent-text">LetsBoxIt?</span></h2>
+      <div class="carousel" id="quienCarousel">
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+              <div class="persona-card">
+                <div class="persona-text">
+                  <h3>Teletrabajadores</h3>
+                  <p>que se van de Madrid todo el verano y subalquilan su piso manteniendo sus pertenencias a salvo.</p>
+                </div>
+                <img src="/assets/img/landing/teletrabajadora.png" width="526" height="593" alt="Mujer joven teletrabajadora con blazer beige" loading="lazy">
+              </div>
+            </div>
+            <div class="carousel-slide">
+              <div class="persona-card">
+                <div class="persona-text">
+                  <h3>Propietarios</h3>
+                  <p>que reforman o pintan su piso y necesitan vaciar habitaciones y almacenar muebles temporalmente.</p>
+                </div>
+                <img src="/assets/img/landing/propietario.png" width="386" height="562" alt="Hombre propietario con chaqueta marrón" loading="lazy">
+              </div>
+            </div>
+            <div class="carousel-slide">
+              <div class="persona-card">
+                <div class="persona-text">
+                  <h3>Empresas de home staging</h3>
+                  <p>que vacían y reforman un inmueble antes de sacarlo al mercado.</p>
+                </div>
+                <img src="/assets/img/landing/empresa.png" width="518" height="587" alt="Mujer rubia con gafas redondas de una empresa de home staging" loading="lazy">
+              </div>
+            </div>
+            <div class="carousel-slide">
+              <div class="persona-card">
+                <div class="persona-text">
+                  <h3>Personas de mudanza</h3>
+                  <p>con desfase entre la salida y la entrada que necesitan mudanza + almacén temporal para sus cosas.</p>
+                </div>
+                <img src="/assets/img/landing/persona-mudanza.png" width="434" height="569" alt="Chico joven con sudadera lila en proceso de mudanza" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button type="button" class="carousel-arrow" id="carouselPrev" aria-label="Anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="carousel-dots" id="carouselDots">
+            <button type="button" class="carousel-dot" aria-label="Ir a la diapositiva 1" aria-current="true"></button>
+            <button type="button" class="carousel-dot" aria-label="Ir a la diapositiva 2"></button>
+            <button type="button" class="carousel-dot" aria-label="Ir a la diapositiva 3"></button>
+            <button type="button" class="carousel-dot" aria-label="Ir a la diapositiva 4"></button>
+          </div>
+          <button type="button" class="carousel-arrow" id="carouselNext" aria-label="Siguiente">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6) OPINIONES -->
+  <section class="sec-reviews">
+    <div class="container">
+      <h2>Opiniones de <span class="accent-text">cinco estrellas</span></h2>
+      <p class="lead" style="margin:10px 0 4px">Encuesta interna a clientes del verano 2025. Sus palabras, sin retoques:</p>
+      <div class="promo-reviews">
+        <div class="review">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"Muchísima comodidad. Te olvidas por completo, ellos se encargan de todo. Volvería sin dudarlo."</p>
+          <div class="review-author">
+            <div class="avatar">LM</div>
+            <div>
+              <div class="review-name">Lucía M.</div>
+              <div class="review-meta">Residencia · Verano 2025</div>
+            </div>
+          </div>
+        </div>
+        <div class="review">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"Lo mejor es la rapidez con la que contestan los mensajes y la facilidad para concertar fecha y hora. Me pareció la opción más cómoda con diferencia."</p>
+          <div class="review-author">
+            <div class="avatar">AM</div>
+            <div>
+              <div class="review-name">Aldana M.</div>
+              <div class="review-meta">Piso particular · Verano 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7) CTA FINAL -->
+  <section class="sec-cta">
+    <div class="container">
+      <div class="franja" style="padding-right:20px; text-align:center;">
+        Aprovecha esta oferta para guardar tus cosas en verano.
+      </div>
+
+      <div class="cta-final-grid">
+        <div class="cta-final-card">
+          <h2>Reserva online</h2>
+          <div class="oferta-precio">
+            <span class="precio-anterior">antes 50€</span>
+            <span class="oferta-precio-actual">por 20€</span>
+          </div>
+          <p>que se descuentan del importe total, con cancelación gratuita.</p>
+          <a href="/reserva.html" class="btn btn-promo btn-lg btn-full">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21l1.65-4.5A8.5 8.5 0 1 1 7.5 19.35L3 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            RESERVAR
+          </a>
+        </div>
+
+        <p class="cta-final-or">o</p>
+
+        <div class="cta-doubt-card">
+          <p style="margin-bottom:2px">Resuelve dudas</p>
+          <h3 class="accent-text">sin compromiso</h3>
+          <p>por WhatsApp en solo unos minutos.</p>
+          <a href="https://wa.me/34664530600" class="btn btn-accent btn-lg btn-full">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21l1.65-4.5A8.5 8.5 0 1 1 7.5 19.35L3 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            PREGUNTAR
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="promo-footer">
+  <nav>
+    <a href="/aviso-legal.html">Aviso legal</a> · <a href="/politica-privacidad.html">Privacidad</a> · <a href="/politica-cookies.html">Cookies</a> · <a href="/condiciones-de-uso.html">Condiciones</a>
+  </nav>
+  <p>© 2026 LetsBoxIt · Un proyecto KAN · Madrid</p>
+</footer>
+
+<a href="/reserva.html" class="promo-bottombar" aria-label="Reserva ahora por 20 euros, antes 50 euros">
+  RESERVA AHORA POR<s> 50</s> 20€
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 21l1.65-4.5A8.5 8.5 0 1 1 7.5 19.35L3 21z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+</a>
+
+<script src="/assets/site.js?v=v2a"></script>
+<script src="/assets/cookies.js?v=v2a"></script>
+<script>
+(function () {
+  // (0) Oferta caducada: mismo mecanismo que assets/partials.js (LBI_OFERTA.fin).
+  // Esta landing no carga partials.js, así que replicamos aquí el body.oferta-caducada.
+  try {
+    var OFERTA_FIN = '2026-07-31';
+    var hoy = new Date();
+    var hoyISO = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0') + '-' + String(hoy.getDate()).padStart(2, '0');
+    if (hoyISO > OFERTA_FIN) {
+      document.body.classList.add('oferta-caducada');
+      var bottombar = document.querySelector('.promo-bottombar');
+      if (bottombar) bottombar.setAttribute('aria-label', 'Reserva ahora por 20 euros');
+    }
+  } catch (e) { /* noop */ }
+})();
+
+(function () {
+  // (a) Variantes de título por parámetro ?v=
+  var TITULOS = {
+    // 4 títulos finales (Gon, 2026-07-07). "a" = por defecto (Teletrabajadores, el del PDF).
+    a: { html: 'Tus cosas en buenas manos <span class="accent-text">mientras subalquilas tu piso</span>', title: 'Guarda tus cosas mientras subalquilas tu piso | LetsBoxIt' },
+    b: { html: 'Tus cosas en buenas manos <span class="accent-text">mientras reformas tu piso</span>', title: 'Guarda tus cosas mientras reformas tu piso | LetsBoxIt' },
+    c: { html: 'Tus cosas en buenas manos <span class="accent-text">mientras haces la mudanza</span>', title: 'Guarda tus cosas durante tu mudanza | LetsBoxIt' },
+    d: { html: 'Muebles en buenas manos <span class="accent-text">mientras dura el home staging</span>', title: 'Almacén para home staging | LetsBoxIt' }
+  };
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var v = params.get('v');
+    if (v && TITULOS[v]) {
+      var heroTitle = document.getElementById('heroTitle');
+      if (heroTitle) heroTitle.innerHTML = TITULOS[v].html;
+      document.title = TITULOS[v].title;
+    }
+  } catch (e) { /* noop */ }
+})();
+
+(function () {
+  // (b) Carrusel "¿Para quién es LetsBoxIt?"
+  var track = document.getElementById('carouselTrack');
+  var dotsWrap = document.getElementById('carouselDots');
+  var prevBtn = document.getElementById('carouselPrev');
+  var nextBtn = document.getElementById('carouselNext');
+  if (!track || !dotsWrap || !prevBtn || !nextBtn) return;
+
+  var slides = track.querySelectorAll('.carousel-slide');
+  var dots = dotsWrap.querySelectorAll('.carousel-dot');
+  var n = slides.length;
+  var current = 0;
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function go(i) {
+    current = (i + n) % n;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, idx) {
+      d.setAttribute('aria-current', idx === current ? 'true' : 'false');
+    });
+  }
+
+  prevBtn.addEventListener('click', function () { go(current - 1); });
+  nextBtn.addEventListener('click', function () { go(current + 1); });
+  dots.forEach(function (d, idx) {
+    d.addEventListener('click', function () { go(idx); });
+  });
+
+  // Arrastre (mouse + touch unificados vía Pointer Events)
+  var dragging = false;
+  var dragStartX = 0;
+  var dragDeltaX = 0;
+  var trackWidth = 0;
+  var activePointerId = null;
+
+  function onPointerDown(e) {
+    if (dragging) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    dragging = true;
+    dragDeltaX = 0;
+    dragStartX = e.clientX;
+    trackWidth = track.getBoundingClientRect().width;
+    activePointerId = e.pointerId;
+    try { track.setPointerCapture(activePointerId); } catch (err) { /* noop */ }
+    track.classList.add('dragging');
+    track.style.transition = 'none';
+    stopAuto();
+  }
+
+  function onPointerMove(e) {
+    if (!dragging || e.pointerId !== activePointerId) return;
+    dragDeltaX = e.clientX - dragStartX;
+    var basePercent = -(current * 100);
+    var dragPercent = trackWidth ? (dragDeltaX / trackWidth) * 100 : 0;
+    track.style.transform = 'translateX(' + (basePercent + dragPercent) + '%)';
+  }
+
+  function endDrag(e) {
+    if (!dragging || e.pointerId !== activePointerId) return;
+    dragging = false;
+    track.classList.remove('dragging');
+    try { track.releasePointerCapture(activePointerId); } catch (err) { /* noop */ }
+    activePointerId = null;
+    if (!prefersReduced) track.style.transition = '';
+    var dx = dragDeltaX;
+    dragDeltaX = 0;
+    if (Math.abs(dx) > 40) {
+      go(dx > 0 ? current - 1 : current + 1);
+    } else {
+      go(current);
+    }
+    startAuto();
+  }
+
+  track.addEventListener('pointerdown', onPointerDown);
+  track.addEventListener('pointermove', onPointerMove);
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+
+  if (prefersReduced) track.style.transition = 'none';
+
+  // Autoplay (se pausa al interactuar / con reduced-motion)
+  var autoTimer = null;
+  function startAuto() { if (prefersReduced) return; stopAuto(); autoTimer = setInterval(function () { go(current + 1); }, 4500); }
+  function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+  prevBtn.addEventListener('click', startAuto);
+  nextBtn.addEventListener('click', startAuto);
+  dots.forEach(function (d) { d.addEventListener('click', startAuto); });
+  var carEl = document.getElementById('quienCarousel');
+  if (carEl) { carEl.addEventListener('mouseenter', stopAuto); carEl.addEventListener('mouseleave', startAuto); }
+
+  go(0);
+  startAuto();
+})();
+</script>
+
+<div id="lbx-preview-banner" role="note" style="position:fixed;left:12px;bottom:12px;z-index:99999;background:#0F1E1D;color:#fff;font:600 12px/1.3 system-ui,sans-serif;padding:8px 14px;border-radius:999px;box-shadow:0 4px 16px rgba(0,0,0,.25);pointer-events:none">Vista previa · no es la web real</div>
+<script>
+(function(){
+  document.addEventListener('submit', function (e) { e.preventDefault(); e.stopImmediatePropagation(); alert('Vista previa: aquí no se envían reservas ni se cobra nada.'); }, true);
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href*="stripe.com"]');
+    if (a) { e.preventDefault(); e.stopImmediatePropagation(); alert('Vista previa: el pago está desactivado.'); }
+  }, true);
+})();
+</script>
+</body>
+</html>

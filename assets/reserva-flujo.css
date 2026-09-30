@@ -1,0 +1,113 @@
+/* ═══════════════════════════════════════════════════════════════
+   assets/reserva-flujo.css — LetsBoxIt
+   Calendario de disponibilidad en tiempo real del formulario de
+   reserva (Lote 5). Compartido por reserva.html / en/reserva.html /
+   fr/reserva.html vía assets/reserva-flujo.js. Prefijo lbi-cal- para
+   no colisionar con css/portal.css (portal del cliente, no cargado
+   en estas páginas, pero mismo patrón visual: .dias-grid/.dia-btn).
+   ═══════════════════════════════════════════════════════════════ */
+
+.lbi-cal-wrap { display: flex; flex-direction: column; gap: 4px; }
+/* Blindaje: #lbiCalRecogida lleva la clase .field (que reserva-flujo.js usa en
+   marcarValido() vía closest('.field')) y .field{display:flex} vencía al
+   [hidden]{display:none} del user-agent. Con el ID, el [hidden] recupera la
+   prioridad: el contenedor no deja una caja vacía en modo degradado aunque en
+   el futuro gane borde/fondo/padding. */
+#lbiCalRecogida[hidden] { display: none; }
+.lbi-cal-cargando,
+.lbi-cal-error { font-size: 13px; color: var(--text-3); margin: 4px 0; }
+.lbi-cal-error { color: #C44141; }
+
+.lbi-cal-mes {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+  margin: 14px 0 8px;
+}
+.lbi-cal-mes:first-child { margin-top: 0; }
+
+.lbi-cal-dias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+.lbi-cal-dia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 8px 4px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 160ms, background 160ms, transform 160ms, box-shadow 160ms;
+  touch-action: manipulation;
+  font-family: inherit;
+}
+.lbi-cal-dia:hover { border-color: var(--accent); transform: translateY(-1px); }
+.lbi-cal-dia.lbi-cal-sel {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 3px rgba(27, 162, 160, 0.14);
+}
+.lbi-cal-dia-num { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.lbi-cal-dia-sem { font-size: 10.5px; color: var(--text-3); }
+
+.lbi-cal-franjas-tit {
+  font-size: 13px; font-weight: 600; color: var(--text);
+  margin: 16px 0 8px;
+}
+.lbi-cal-franjas { display: flex; flex-wrap: wrap; gap: 8px; }
+.lbi-cal-franja {
+  padding: 9px 14px;
+  min-height: 44px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 160ms, background 160ms, color 160ms;
+  touch-action: manipulation;
+}
+.lbi-cal-franja:hover:not([disabled]) { border-color: var(--accent); color: var(--accent); }
+.lbi-cal-franja.lbi-cal-sel { border-color: var(--accent); background: var(--accent); color: #fff; }
+/* La regla de hover (:hover:not([disabled])) tiene la misma especificidad que
+   .lbi-cal-sel y le ganaba el color al estado seleccionado -> teal sobre teal,
+   texto invisible. Esta regla, posterior al hover, restaura el blanco cuando la
+   franja seleccionada recibe el ratón. */
+.lbi-cal-franja.lbi-cal-sel:hover { color: #fff; }
+.lbi-cal-franja[disabled] { opacity: 0.45; cursor: not-allowed; text-decoration: line-through; }
+/* "pocas" (últimas plazas): tinte ámbar cálido y accesible (texto #B45309 ~5:1
+   sobre blanco, AA) para que la urgencia salte a la vista frente a "libre". El
+   ámbar solo aplica en reposo: en hover manda el teal (regla anterior, más
+   específica) y cuando está seleccionada manda el blanco sobre teal -- el ámbar
+   nunca cae sobre fondo teal. */
+.lbi-cal-franja-pocas { font-weight: 700; border-color: #D97706; color: #B45309; }
+.lbi-cal-franja-pocas::after { content: ' · últimas plazas'; font-weight: 500; }
+
+.lbi-cal-resumen {
+  font-size: 13.5px;
+  color: var(--text-2);
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg-elev-1, #F7F5F0);
+  border-radius: 8px;
+}
+.lbi-cal-resumen strong { color: var(--text); }
+.lbi-cal-resumen:empty { display: none; }
+
+.lbi-cal-conflicto {
+  font-size: 13px;
+  color: #C44141;
+  margin: 10px 0 4px;
+}
+
+@media (max-width: 600px) {
+  .lbi-cal-dias { grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); }
+}

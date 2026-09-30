@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#0E5F5E" opacity="0.18"></rect>
+  <rect x="20" y="20" width="1160" height="760" fill="none" stroke="#0E5F5E" stroke-width="3" stroke-dasharray="14 10" opacity="0.5"></rect>
+  <g font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="600" y="380" font-size="44" fill="#0E5F5E" font-weight="700">FOTO PENDIENTE</text>
+    <text x="600" y="430" font-size="32" fill="#0E5F5E" opacity="0.8">Almacén con candado</text>
+    <text x="600" y="480" font-size="22" fill="#0E5F5E" opacity="0.6" font-family="monospace">almacen-seguridad.jpg</text>
+  </g>
+</svg>

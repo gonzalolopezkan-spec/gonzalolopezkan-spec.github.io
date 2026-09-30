@@ -1,0 +1,370 @@
+/* ============================================================
+   reserva.html — hoja de página (sistema v2)
+   Solo visual/microcopy. No toca reserva-flujo.css/.js ni el
+   contrato de ids/names/values del formulario (ver
+   recon/contrato-reserva.md). Reutiliza tokens de assets/styles.css.
+   ============================================================ */
+
+/* ── Hero ── */
+.page-hd { padding-top: clamp(48px, 6vw, 88px); padding-bottom: 8px; }
+.page-hd h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: .98;
+  margin-bottom: 18px;
+}
+
+.book-pretitle {
+  display: inline-flex; gap: 14px; align-items: center; flex-wrap: wrap;
+  margin-bottom: 18px; padding: 9px 16px 9px 14px;
+  background: var(--teal-tint, rgba(14,124,122,.08));
+  border: 1px solid rgba(14,124,122,.22);
+  border-radius: var(--lb-radius-pill);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--ink-2);
+}
+.book-pretitle::before {
+  content: ""; width: 7px; height: 7px; border-radius: 2px;
+  background: var(--kraft); transform: rotate(45deg); flex: none;
+}
+.book-pretitle strong { color: var(--teal-deep); font-weight: 600; }
+.book-pretitle .dot { color: var(--ink-4); }
+
+/* ── Grid ── */
+.book-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }
+@media (max-width: 980px) { .book-grid { grid-template-columns: 1fr; gap: 24px; } }
+
+/* ── Form card ── */
+.form-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--lb-radius-card);
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(15,30,29,.05), 0 24px 56px -28px rgba(15,30,29,.28);
+}
+@media (max-width: 600px) { .form-card { padding: 16px; } }
+
+/* ── Fields ── */
+.field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+@media (max-width: 600px) { .field-group { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+.field label {
+  font-size: 13px; color: var(--ink-2); font-weight: 600;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.field label .req { color: #B4432E; }
+/* Bloqueante #1: el botón ⓘ vive DENTRO de .field-label-text (como texto
+   normal después de la pregunta), no como item flex hermano — así el
+   texto y el icono envuelven juntos con el flujo de línea normal en vez
+   de que el icono se caiga a su propia línea flex cuando el texto (en
+   mayúsculas/mono, más ancho) ya ocupa toda la fila. min-width:0 deja
+   que el span se encoja para caber junto al resto de items flex de la
+   etiqueta (p.ej. .req) en vez de desbordar. */
+.field label .field-label-text { flex: 1 1 auto; min-width: 0; }
+.field label .field-label-text .info-btn { vertical-align: -6px; margin-left: 2px; }
+
+/* font-size 16px GLOBAL en todos los inputs/select/textarea — previene zoom iOS Safari */
+.field input, .field select, .field textarea {
+  padding: 12px 14px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--lb-radius-field);
+  background: var(--paper);
+  font-family: inherit; font-size: 16px; color: var(--ink);
+  transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  touch-action: manipulation;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(14,124,122,.15);
+}
+.field input.invalid, .field select.invalid, .field textarea.invalid {
+  border-color: #B4432E;
+  box-shadow: 0 0 0 3px rgba(180,67,46,.10);
+}
+.field-hint { font-size: 12.5px; color: var(--ink-3); line-height: 1.5; }
+.field-hint.codigo-ok { color: #15803D; font-weight: 600; }
+.field-hint.codigo-bad { color: #9A5B12; }
+.field-error { font-size: 12.5px; color: #B4432E; display: none; }
+.field.error .field-error { display: block; }
+
+/* ── Section titles (numeradas: son pasos reales del formulario) ── */
+.section-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .12em;
+  line-height: 1.4;
+  text-transform: uppercase; color: var(--ink-3);
+  margin: 34px 0 18px; padding-bottom: 10px;
+  border-bottom: 1.5px dashed var(--kraft-deep);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title:first-child { margin-top: 0; }
+.sec-icon { display: block; flex-shrink: 0; color: var(--teal); }
+
+/* ── Segmented control ── */
+.seg-control { display: flex; gap: 8px; width: 100%; }
+.seg-control.invalid .seg-option { border-color: #B4432E; }
+.seg-option {
+  flex: 1; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--lb-radius-field);
+  padding: 14px 16px;
+  font-size: 14px; font-weight: 600;
+  text-align: center; line-height: 1.3;
+  background: var(--paper); color: var(--ink-2);
+  min-height: 52px;
+  user-select: none; touch-action: manipulation;
+  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out), color 160ms var(--ease-out);
+}
+.seg-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+.seg-option span { pointer-events: none; }
+.seg-option:hover { border-color: var(--teal); color: var(--teal-deep); }
+.seg-option:has(input:checked) { background: var(--teal); border-color: var(--teal); color: #fff; }
+/* Mayor #4: el <input type="radio"> real va oculto (opacity:0) y no
+   había ninguna regla :focus-within/:has(:focus-visible), así que
+   navegar con Tab no mostraba ningún indicador de foco. Mismo box-shadow
+   que ya usan los inputs de texto (.field input:focus, línea 72). */
+.seg-option:has(input:focus-visible) {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(14,124,122,.15);
+}
+.field-label {
+  font-size: 13px; color: var(--ink-2); font-weight: 600;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.field-label .req { color: #B4432E; }
+@media (max-width: 600px) {
+  .seg-control { flex-direction: column; gap: 8px; }
+  .seg-option { width: 100%; min-height: 56px; }
+}
+
+/* ── Info button ── */
+.info-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  background: transparent; border: none;
+  color: var(--teal); font-size: 13px; font-weight: 500;
+  cursor: pointer; padding: 6px 8px;
+  min-width: 40px; min-height: 40px;
+  border-radius: var(--lb-radius-s);
+  text-decoration: underline; text-underline-offset: 3px;
+  touch-action: manipulation; flex-shrink: 0;
+  transition: opacity .15s var(--ease-out);
+}
+.info-btn:hover { opacity: .72; }
+@media (max-width: 760px) { .info-btn { font-size: 12px; } }
+
+/* ── Conditional field (hidden/visible) ── */
+.field-hidden { max-height: 0; overflow: hidden; margin-bottom: 0 !important; transition: max-height .3s var(--ease-out), margin-bottom .3s var(--ease-out); }
+.field-hidden.field-visible { max-height: 300px; margin-bottom: 18px !important; }
+
+/* ── Extras collapsible ── */
+.extras-toggle {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  padding: 16px 20px;
+  margin-top: 34px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: var(--lb-radius-field);
+  cursor: pointer; font-size: 15px; font-weight: 600; color: var(--ink);
+  touch-action: manipulation; user-select: none;
+  transition: background .15s var(--ease-out);
+}
+.extras-toggle:hover { background: var(--teal-tint, rgba(14,124,122,.08)); }
+.extras-toggle-sym { font-size: 20px; color: var(--teal); font-weight: 700; line-height: 1; flex-shrink: 0; }
+.extras-body { overflow: hidden; max-height: 0; transition: max-height .4s var(--ease-out), margin-top .3s var(--ease-out); margin-top: 0; }
+.extras-body.extras-expanded { max-height: 1500px; margin-top: 22px; }
+
+/* ── Checkbox field ── */
+.field-check { display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; }
+.field-check > label {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--ink); font-weight: 500;
+  cursor: pointer; touch-action: manipulation; user-select: none;
+  min-height: 44px; flex-wrap: nowrap;
+}
+.field-check input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: var(--teal); cursor: pointer; touch-action: manipulation; }
+/* Bloqueante #1: el botón ⓘ vive DENTRO de .fc-text (después del texto,
+   como flujo normal), y .fc-text es el ÚNICO item flexible de la fila
+   (flex-wrap:nowrap arriba fuerza al checkbox y a .fc-text a compartir
+   fila siempre). Con flex:1 1 auto + min-width:0, .fc-text se encoge al
+   ancho que queda tras el checkbox y el texto+icono envuelven juntos
+   dentro de esa caja, en vez de que el icono se caiga a su propia línea
+   flex cuando el texto ya llena la fila. */
+.field-check > label .fc-text { flex: 1 1 auto; min-width: 0; }
+.field-check > label .fc-text .info-btn { vertical-align: -6px; margin-left: 2px; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(15,30,29,.5);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none;
+  transition: opacity .2s var(--ease-out);
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal-box {
+  background: var(--paper); border-radius: var(--lb-radius-card);
+  padding: 32px; max-width: 500px; width: 100%;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(15,30,29,.22);
+  max-height: 80vh; overflow-y: auto;
+  border-top: 4px solid var(--kraft);
+}
+.modal-close {
+  position: absolute; top: 14px; right: 16px;
+  background: none; border: none; font-size: 22px;
+  cursor: pointer; color: var(--ink-3); line-height: 1;
+  min-width: 44px; min-height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  touch-action: manipulation; padding: 0;
+}
+.modal-close:hover { color: var(--ink); }
+.modal-title { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--ink); margin-bottom: 14px; padding-right: 36px; }
+.modal-body { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+.modal-body p + p { margin-top: 12px; }
+.modal-ok { margin-top: 24px; width: 100%; touch-action: manipulation; user-select: none; justify-content: center; padding: 14px; }
+@media (max-width: 760px) {
+  .modal-box { padding: 24px; max-width: calc(100vw - 40px); }
+  .modal-body { font-size: 16px; }
+}
+
+/* ── Summary / ticket de reserva (momento visual propio de esta página) ── */
+.summary {
+  position: sticky; top: 80px;
+  background: var(--label);
+  background-image: radial-gradient(rgba(138,90,34,.08) 1px, transparent 1px);
+  background-size: 10px 10px;
+  border: 1.5px solid var(--kraft-deep);
+  border-radius: var(--lb-radius-card);
+  padding: 30px 28px 28px;
+  box-shadow: 0 1px 2px rgba(15,30,29,.05), 0 28px 60px -30px rgba(15,30,29,.35);
+}
+.summary.ticket { position: sticky; }
+.ticket-punch {
+  position: absolute; left: 28px; top: -11px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--paper); border: 1.5px dashed var(--kraft-deep); z-index: 3;
+}
+.ticket-stamp {
+  position: absolute; right: -8px; top: -18px; z-index: 3;
+  rotate: 8deg;
+}
+.summary-eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--kraft-deep);
+}
+.summary h3 {
+  font-size: 12px; color: var(--kraft-deep); font-weight: 500;
+  margin-top: 24px; margin-bottom: 4px;
+  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .1em;
+}
+.hoy-pagas {
+  font-family: var(--font-display); font-weight: 800; font-size: 66px;
+  color: var(--teal-deep); line-height: 1;
+  letter-spacing: -0.04em; font-variant-numeric: tabular-nums;
+}
+.hoy-sub { font-size: 14px; color: var(--ink-2); margin-top: 8px; }
+.hoy-sub small { display: block; font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+
+.summary-line { font-size: 14px; color: var(--ink); margin-top: 10px; display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; line-height: 1.4; }
+.summary-line .sl-sub { font-size: 12px; color: var(--ink-3); display: block; width: 100%; }
+.summary-line-hidden { display: none; }
+
+.total-est { margin-top: 6px; font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.total-est.sin-cajas { font-size: 15px; font-weight: 500; color: var(--ink-3); }
+.total-sub { font-size: 12px; color: var(--ink-3); line-height: 1.5; margin-top: 4px; }
+
+.summary-divider { margin: 24px 0 18px; border: 0; border-top: 1.5px dashed var(--kraft-deep); opacity: .55; }
+.includes-vert { display: flex; flex-direction: column; gap: 10px; }
+.includes-vert span { font-size: 14px; color: var(--ink-2); display: flex; gap: 10px; align-items: flex-start; }
+.includes-vert span::before { content: "✓"; color: var(--teal-deep); font-weight: 700; flex-shrink: 0; line-height: 1.4; }
+
+.confianza {
+  margin-top: 20px; padding: 14px 16px;
+  background: rgba(255,255,255,.55); border: 1px dashed var(--kraft-deep);
+  border-radius: var(--lb-radius-field);
+  font-size: 13px; color: var(--ink-2); line-height: 1.5;
+}
+.confianza strong { color: var(--ink); }
+
+/* ── Reseña + partners (cierre del aside) ── */
+.summary-social { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(138,90,34,.28); }
+.summary-review { font-size: 13px; color: var(--ink-2); font-style: italic; line-height: 1.5; }
+.summary-review-autor { display: block; margin-top: 6px; font-style: normal; font-size: 12px; color: var(--ink-3); }
+.summary-partners { margin-top: 14px; font-size: 12.5px; color: var(--ink-3); }
+.summary-partners strong { color: var(--ink-2); }
+.summary-google {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 12px; min-height: 44px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em;
+  color: var(--teal-deep); font-weight: 600;
+  transition: color 140ms var(--ease-out);
+}
+.summary-google:hover { color: var(--teal); }
+
+/* ── Mini-resumen móvil (solo ≤980px, ver media query del book-grid) ── */
+.mini-resumen {
+  display: none;
+  margin: 22px 0 0;
+  padding: 16px 18px;
+  background: var(--label);
+  border: 1.5px dashed var(--kraft-deep);
+  border-radius: var(--lb-radius-field);
+}
+.mini-resumen-fila { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--ink-2); }
+.mini-resumen-fila + .mini-resumen-fila { margin-top: 6px; }
+.mini-resumen-fila strong { font-family: var(--font-display); font-size: 16px; color: var(--teal-deep); font-variant-numeric: tabular-nums; }
+.mini-resumen-lista { list-style: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--kraft-deep); display: flex; flex-direction: column; gap: 6px; }
+.mini-resumen-lista li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); }
+.mini-resumen-lista svg { color: var(--teal-deep); flex-shrink: 0; }
+/* Debe declararse después de la regla base .mini-resumen{display:none} de
+   arriba: misma especificidad, y en CSS gana la última regla en el orden
+   de origen -- si este media query fuera anterior en el archivo, la regla
+   base lo pisaría y la tarjeta nunca se vería en móvil. */
+@media (max-width: 980px) { .mini-resumen { display: block; } }
+
+/* ── Mayor #2: en una columna, el ticket completo del aside repetía el
+   mismo precio justo DESPUÉS del CTA que el .mini-resumen ya mostraba
+   justo ANTES — dos importes seguidos alrededor del botón. En vez de
+   duplicar contenido, el ticket completo (con sello, reseña y sello de
+   confianza) se reserva para el layout de dos columnas; en una columna
+   el mini-resumen ligero + el CTA son el único resumen. ── */
+@media (max-width: 980px) { .summary.ticket { display: none; } }
+
+/* ── Pago seguro + legal (bajo el CTA, visible siempre) ── */
+.cta-row { margin-top: 30px; }
+.cta-row .btn { width: 100%; justify-content: center; padding: 18px; font-size: 16px; touch-action: manipulation; user-select: none; }
+.pago-seguro { margin-top: 16px; font-size: 13px; color: var(--ink-2); text-align: center; line-height: 1.55; }
+.pago-seguro svg { display: inline-block; vertical-align: -2px; margin-right: 4px; color: var(--teal); }
+.pago-seguro strong { color: var(--ink); }
+.form-legal { margin-top: 8px; font-size: 12px; color: var(--ink-3); text-align: center; line-height: 1.5; }
+.form-legal a { text-decoration: underline; text-underline-offset: 2px; color: var(--ink-3); }
+.form-legal a:hover { color: var(--teal); }
+
+/* ── Form sections: separadas por una línea de puntada kraft, sin bloques
+   de color por sección (más limpio y coherente con el resto del sistema). ── */
+.form-section { padding: 0; margin-bottom: 8px; }
+.sec-extras { padding: 0; }
+.sec-mejorar { margin-bottom: 0; }
+.sec-extras .extras-toggle { margin-top: 34px; }
+
+/* ── Pasos finales ── */
+.pasos {
+  margin-top: 40px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--line); border-radius: var(--lb-radius-card); overflow: hidden; background: var(--paper);
+  box-shadow: 0 1px 2px rgba(15,30,29,.05), 0 16px 40px -24px rgba(15,30,29,.2);
+}
+.paso { padding: 26px 24px; border-right: 1.5px dashed var(--line-strong); }
+.paso:last-child { border-right: none; }
+.paso .num { font-family: var(--font-mono); font-size: 11px; color: var(--teal); letter-spacing: .14em; text-transform: uppercase; }
+.paso h3, .paso h4 { font-family: var(--font-display); margin: 10px 0 6px; font-size: 18px; letter-spacing: -0.015em; }
+.paso p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+@media (max-width: 760px) {
+  .pasos { grid-template-columns: 1fr; }
+  .paso { border-right: none; border-bottom: 1.5px dashed var(--line-strong); }
+  .paso:last-child { border-bottom: none; }
+}

@@ -1,0 +1,372 @@
+﻿<!doctype html>
+<html lang="es">
+<head><meta name="robots" content="noindex, nofollow"><script>window.fbq=function(){};window.fbq.loaded=true;window.fbq.version="2.0";window.fbq.queue=[];window._fbq=window.fbq;</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1158477805457211');
+fbq('track', 'PageView');
+</script>
+
+<!-- End Meta Pixel Code -->
+<link rel="icon" type="image/x-icon" href="/faviconletsboxit/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/faviconletsboxit/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/faviconletsboxit/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/faviconletsboxit/apple-touch-icon.png">
+<link rel="manifest" href="/faviconletsboxit/site.webmanifest">
+<meta name="theme-color" content="#1a9d8e">
+<link rel="canonical" href="https://www.letsboxit.es/calculadora.html">
+<link rel="alternate" hreflang="es" href="https://www.letsboxit.es/calculadora.html">
+<link rel="alternate" hreflang="en" href="https://www.letsboxit.es/en/calculadora.html">
+<link rel="alternate" hreflang="fr" href="https://www.letsboxit.es/fr/calculadora.html">
+<link rel="alternate" hreflang="x-default" href="https://www.letsboxit.es/calculadora.html">
+<meta property="og:locale" content="es_ES">
+<title>Calculadora Precio Almacenamiento Verano Estudiantes Madrid | LetsBoxIt</title>
+<meta name="description" content="Calcula cuántas cajas necesitas para tu verano. Sin compromiso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:ital,wght@0,400..700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=v2a">
+<link rel="stylesheet" href="assets/lb-chrome.css?v=v2a">
+<link rel="stylesheet" href="assets/pg-calculadora.css?v=v2a">
+<link rel="stylesheet" href="assets/legal.css">
+<link rel="stylesheet" href="assets/cookie-consent.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<div data-nav></div>
+
+<main>
+  <section class="lb-section calc-hero hero" data-screen-label="01 Hero">
+    <div class="lb-container">
+      <div class="lb-section-head lb-reveal">
+        <p class="lb-eyebrow">Calculadora por objetos</p>
+        <h1 class="lb-h1" style="font-size:clamp(40px,5.4vw,64px)">¿Cuántas cajas necesitas?</h1>
+        <p class="lb-lead">Marca lo que vas a guardar y te decimos cajas, precio y total estimado. En tiempo real, sin pedirte el email.</p>
+      </div>
+      <div class="calc-tip lb-reveal">
+        <p><strong>¿No sabes cuántas cajas necesitas?</strong> La mayoría de estudiantes que vivieron en residencia el año pasado guardaron entre 5 y 9 cajas. Si tienes piso propio o has traído más cosas, lo habitual son 10–15 cajas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lb-section lb-section--mist" data-screen-label="02 Calculadora">
+    <div class="lb-container">
+      <div class="calc-grid">
+        <div>
+          <div class="calc-card lb-reveal" id="catList"></div>
+
+          <div class="calc-card bultos-card lb-reveal">
+            <h2 class="lb-h3">Bultos sueltos</h2>
+            <p class="calc-card-hint">Muebles y objetos que no entran en caja. Suman al total aparte.</p>
+            <div id="bultoList"></div>
+            <div class="bultos-note">
+              <p>¿Tienes otro tipo de bulto? <a href="https://wa.me/34664530600">Escríbenos por WhatsApp</a> y te confirmamos el precio.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="calc-aside">
+          <div class="calc-panel lb-calc__panel lb-reveal">
+            <span class="lb-calc__panel-stamp">PRECIO CERRADO</span>
+            <span class="calc-panel-eyebrow">Estimación en vivo</span>
+            <div class="calc-panel-cajas"><span id="outCajas">0</span><span class="calc-panel-cajas-unit">cajas</span></div>
+            <p class="calc-panel-cajas-note">Caja estándar de 60 × 40 × 30 cm</p>
+
+            <div class="lb-calc__breakdown">
+              <div class="line">
+                <span>Precio por caja</span>
+                <span id="outPrecio">—</span>
+              </div>
+              <div id="outBultosBlock" style="display:none">
+                <div class="calc-panel-bultos-lbl">Bultos</div>
+                <div id="outBultosLines"></div>
+              </div>
+            </div>
+
+            <div class="lb-calc__total-row">
+              <span class="label">Total estimado</span>
+              <span class="amount" id="outTotal">0€</span>
+            </div>
+
+            <p class="lb-calc__pay-note">Hoy pagas <span class="precio-anterior">50€</span><span class="precio-actual">20€</span><span class="precio-promo" data-oferta-fecha>hasta el 31 de julio</span>. Se descuentan del total. <strong>El resto se cobra el día de la recogida</strong>, no en septiembre.</p>
+
+            <div id="capWarn" class="calc-cap-warn" style="display:none">
+              <strong>¿Tienes mucho volumen?</strong> Escríbenos por WhatsApp y te hacemos una tarifa especial.
+              <a href="https://wa.me/34664530600?text=Hola!%20Tengo%20más%20de%2020%20cajas,%20¿podríais%20hacerme%20una%20tarifa%20especial?" class="lb-btn lb-btn--light lb-btn--sm">WhatsApp +34 664 530 600</a>
+            </div>
+
+            <p class="calc-panel-disclaimer">Estimación. El número final puede variar ±1 según veamos en la recogida. Solo pagas por las cajas que ocupes. Cancelación gratuita con 14 días de antelación.</p>
+
+            <div class="lb-calc__cta">
+              <a href="reserva.html" id="ctaReservar" class="lb-btn lb-btn--light lb-btn--lg">Reservar mi plaza — 20 €</a>
+              <a href="precios.html" class="lb-link-arrow">¿El coche de tus padres sale más barato? Compáralo →</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+<script src="assets/lb-ui.js?v=v2a"></script>
+<script src="assets/site.js?v=v2a"></script>
+<script src="assets/partials.js?v=v2a"></script>
+<script src="assets/cookies.js?v=v2a"></script>
+
+<script>
+// ───────────────────────────── Datos
+const CATEGORIES = [
+  { id: 'ropa', name: 'Ropa', items: [
+    { id: 'camiseta', label: 'Camiseta / polo / camisa', vol: 1.3 },
+    { id: 'jersey', label: 'Jersey / sudadera', vol: 4 },
+    { id: 'pantalon', label: 'Pantalón / vaquero / falda / vestido', vol: 2 },
+    { id: 'corto', label: 'Pantalón corto', vol: 1.2 },
+    { id: 'chaqueta', label: 'Chaqueta fina', vol: 3.5 },
+    { id: 'abrigo', label: 'Abrigo / plumas', vol: 9 },
+    { id: 'pijama', label: 'Pijama', vol: 2 },
+    { id: 'interior', label: 'Pack ropa interior (5 ud)', vol: 1 },
+    { id: 'calcetines', label: 'Pack calcetines (5 pares)', vol: 0.5 },
+  ]},
+  { id: 'calzado', name: 'Calzado (por par)', items: [
+    { id: 'sandalias', label: 'Sandalias / chanclas', vol: 2.5 },
+    { id: 'zapatos', label: 'Zapatos / zapatillas', vol: 5 },
+    { id: 'botines', label: 'Botines', vol: 7 },
+    { id: 'botas', label: 'Botas', vol: 10 },
+  ]},
+  { id: 'cama', name: 'Cama y baño', items: [
+    { id: 'sabanas', label: 'Juego de sábanas', vol: 3 },
+    { id: 'edredon', label: 'Edredón nórdico', vol: 18 },
+    { id: 'manta', label: 'Manta', vol: 5 },
+    { id: 'almohada', label: 'Almohada', vol: 5 },
+    { id: 'toallaG', label: 'Toalla grande', vol: 2.5 },
+    { id: 'toallaP', label: 'Toalla pequeña', vol: 1 },
+  ]},
+  { id: 'libros', name: 'Libros / apuntes', items: [
+    { id: 'pack5', label: 'Pack 5 libros o carpetas', vol: 4.5 },
+    { id: 'carpeta', label: 'Carpeta individual', vol: 1.5 },
+  ]},
+  { id: 'otros', name: 'Otros', items: [
+    { id: 'mochila', label: 'Mochila', vol: 5 },
+    { id: 'bolso', label: 'Bolso', vol: 3 },
+    { id: 'neceser', label: 'Neceser baño y cosmética', vol: 5 },
+    { id: 'electronica', label: 'Electrónica pequeña (cargadores, secador)', vol: 4 },
+    { id: 'deco', label: 'Decoración (cuadros, lámpara mesa)', vol: 5 },
+  ]},
+];
+
+const BULTOS = [
+  { id: 'silla', label: 'Silla', precio: 20 },
+  { id: 'sofa', label: 'Sofá', precio: 65 },
+  { id: 'maceta', label: 'Maceta', precio: 15 },
+  { id: 'espejo', label: 'Espejo', precio: 15 },
+  { id: 'comoda', label: 'Cómoda', precio: 80 },
+  { id: 'maleta-s', label: 'Maleta pequeña', precio: 35 },
+  { id: 'maleta-l', label: 'Maleta grande', precio: 50 },
+  { id: 'neverita', label: 'Mini neverita', precio: 45 },
+];
+
+const TRAMOS = [
+  { min: 1, max: 4, precio: 39 },
+  { min: 5, max: 9, precio: 33 },
+  { min: 10, max: 15, precio: 30 },
+  { min: 16, max: Infinity, precio: 28 },
+];
+
+// ───────────────────────────── Estado
+const state = {
+  items: {}, // id → cantidad
+  bultos: {}, // id → cantidad
+};
+CATEGORIES.forEach(c => c.items.forEach(i => { state.items[i.id] = 0; }));
+BULTOS.forEach(b => { state.bultos[b.id] = 0; });
+
+// ───────────────────────────── Render UI
+function render() {
+  const catList = document.getElementById('catList');
+  catList.innerHTML = CATEGORIES.map((cat, idx) => `
+    <div class="cat" data-cat="${cat.id}">
+      <button class="cat-head" type="button" aria-expanded="false">
+        <span class="cat-title">${cat.name}</span>
+        <span class="cat-meta">
+          <span data-cat-count="${cat.id}">0</span>
+          <svg class="cat-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+      <div class="cat-body">
+        ${cat.items.map(it => `
+          <div class="item-row" data-item="${it.id}">
+            <div class="item-label">
+              <strong>${it.label}</strong>
+              <span>${it.vol} L</span>
+            </div>
+            <div class="stepper" data-stepper="${it.id}" data-kind="item">
+              <button type="button" data-act="dec" aria-label="menos">−</button>
+              <span class="val" data-val="${it.id}">0</span>
+              <button type="button" data-act="inc" aria-label="más">+</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const bultoList = document.getElementById('bultoList');
+  bultoList.innerHTML = BULTOS.map(b => `
+    <div class="item-row" data-bulto="${b.id}">
+      <div class="item-label">
+        <strong>${b.label}</strong>
+        <span>${b.precio}€</span>
+      </div>
+      <div class="stepper" data-stepper="${b.id}" data-kind="bulto">
+        <button type="button" data-act="dec" aria-label="menos">−</button>
+        <span class="val" data-val="b-${b.id}">0</span>
+        <button type="button" data-act="inc" aria-label="más">+</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Listeners de categorías
+  catList.querySelectorAll('.cat-head').forEach(head => {
+    head.addEventListener('click', () => {
+      const cat = head.closest('.cat');
+      const isOpen = cat.classList.toggle('open');
+      head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  // Listeners de steppers
+  document.querySelectorAll('.stepper').forEach(s => {
+    const id = s.dataset.stepper;
+    const kind = s.dataset.kind;
+    s.querySelector('[data-act="inc"]').addEventListener('click', () => updateQty(kind, id, +1));
+    s.querySelector('[data-act="dec"]').addEventListener('click', () => updateQty(kind, id, -1));
+  });
+}
+
+function updateQty(kind, id, delta) {
+  const target = kind === 'item' ? state.items : state.bultos;
+  target[id] = Math.max(0, (target[id] || 0) + delta);
+  refreshDisplay();
+  recompute();
+}
+
+function refreshDisplay() {
+  Object.keys(state.items).forEach(id => {
+    const el = document.querySelector(`[data-val="${id}"]`);
+    if (el) el.textContent = state.items[id];
+  });
+  Object.keys(state.bultos).forEach(id => {
+    const el = document.querySelector(`[data-val="b-${id}"]`);
+    if (el) el.textContent = state.bultos[id];
+  });
+  // Counts por categoría
+  CATEGORIES.forEach(cat => {
+    const total = cat.items.reduce((a, it) => a + (state.items[it.id] || 0), 0);
+    const lbl = document.querySelector(`[data-cat-count="${cat.id}"]`);
+    if (lbl) lbl.textContent = total === 0 ? '' : `${total} ítem${total === 1 ? '' : 's'}`;
+  });
+}
+
+// ───────────────────────────── Cálculo
+function getTramo(cajas) {
+  return TRAMOS.find(t => cajas >= t.min && cajas <= t.max) || TRAMOS[0];
+}
+
+function recompute() {
+  // Volumen total
+  let volumen = 0;
+  CATEGORIES.forEach(cat => cat.items.forEach(it => {
+    volumen += (state.items[it.id] || 0) * it.vol;
+  }));
+  const volumenAjustado = volumen * 1.05;
+  const cajas = volumen === 0 ? 0 : Math.ceil(volumenAjustado / 50);
+
+  document.getElementById('outCajas').textContent = cajas;
+
+  // Precio por caja
+  let precioCaja = 0, totalCajas = 0;
+  if (cajas > 0) {
+    const tramo = getTramo(cajas);
+    precioCaja = tramo.precio;
+    totalCajas = cajas * precioCaja;
+    document.getElementById('outPrecio').textContent = `${precioCaja}€/ud`;
+  } else {
+    document.getElementById('outPrecio').textContent = '—';
+  }
+
+  // Bultos
+  const bultosBlock = document.getElementById('outBultosBlock');
+  const bultosLines = document.getElementById('outBultosLines');
+  let totalBultos = 0;
+  const bultosActivos = BULTOS.filter(b => (state.bultos[b.id] || 0) > 0);
+  if (bultosActivos.length > 0) {
+    bultosBlock.style.display = 'block';
+    bultosLines.innerHTML = bultosActivos.map(b => {
+      const q = state.bultos[b.id];
+      const sub = q * b.precio;
+      totalBultos += sub;
+      return `<div class="out-bultos-line"><span>${b.label} × ${q}</span><span>${sub}€</span></div>`;
+    }).join('');
+  } else {
+    bultosBlock.style.display = 'none';
+  }
+
+  const totalGeneral = totalCajas + totalBultos;
+  document.getElementById('outTotal').textContent = `${totalGeneral}€`;
+
+  // Cap > 20 cajas
+  const cap = document.getElementById('capWarn');
+  const cta = document.getElementById('ctaReservar');
+  if (cajas > 20) {
+    cap.style.display = 'block';
+    cta.style.opacity = '0.5';
+    cta.style.pointerEvents = 'none';
+  } else {
+    cap.style.display = 'none';
+    cta.style.opacity = '1';
+    cta.style.pointerEvents = 'auto';
+  }
+
+  // Persistir para reserva
+  try {
+    sessionStorage.setItem('lbi_calc', JSON.stringify({
+      cajas, totalCajas, totalBultos, totalGeneral, precioCaja,
+      bultos: bultosActivos.map(b => ({ id: b.id, label: b.label, q: state.bultos[b.id], sub: state.bultos[b.id] * b.precio })),
+    }));
+  } catch (e) {}
+
+  // CTA con cajas como query param
+  cta.href = `reserva.html?cajas=${cajas}&total=${totalGeneral}`;
+}
+
+render();
+recompute();
+</script>
+<script>
+  // Meta Pixel — ViewContent
+  if (typeof fbq === 'function') fbq('track', 'ViewContent', {content_name: 'calculadora'});
+</script>
+
+<div id="lbx-preview-banner" role="note" style="position:fixed;left:12px;bottom:12px;z-index:99999;background:#0F1E1D;color:#fff;font:600 12px/1.3 system-ui,sans-serif;padding:8px 14px;border-radius:999px;box-shadow:0 4px 16px rgba(0,0,0,.25);pointer-events:none">Vista previa · no es la web real</div>
+<script>
+(function(){
+  document.addEventListener('submit', function (e) { e.preventDefault(); e.stopImmediatePropagation(); alert('Vista previa: aquí no se envían reservas ni se cobra nada.'); }, true);
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href*="stripe.com"]');
+    if (a) { e.preventDefault(); e.stopImmediatePropagation(); alert('Vista previa: el pago está desactivado.'); }
+  }, true);
+})();
+</script>
+</body>
+</html>

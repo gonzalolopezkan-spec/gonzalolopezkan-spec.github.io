@@ -1,0 +1,192 @@
+/* ==========================================================================
+   LetsBoxIt — assets/pg-calculadora.css
+   Página calculadora.html (por objetos). Dueño exclusivo de este fichero.
+   Usa los tokens/componentes de assets/styles.css (capa v2): --ink, --teal,
+   --kraft, --mist, --paper, lb-container/lb-section/lb-eyebrow/lb-h1/lb-lead,
+   lb-btn, lb-link-arrow, y reutiliza las clases .lb-calc__panel* del panel
+   de total oscuro (injerto del prototipo C) para el resultado en vivo.
+   No toca el <script> inline de calculadora.html: todos los id/clases que
+   genera ese script (#catList, .cat, .cat-head, .item-row, .stepper,
+   [data-val], #bultoList, [data-bulto], #outCajas, #outPrecio,
+   #outBultosBlock, #outBultosLines, #outTotal, #capWarn, #ctaReservar,
+   .precio-anterior/.precio-actual/.precio-promo) se conservan tal cual.
+   ========================================================================== */
+
+/* Arreglo de contención (solo afecta a esta página, no toca ficheros
+   compartidos): assets/site.js marca .lb-reveal visto añadiendo la clase
+   "is-visible" (mecanismo antiguo de assets/lb-chrome.css), pero la regla de
+   ocultación de assets/styles.css (capa v2, "html.lb-js .lb-reveal") tiene
+   más especificidad que ".lb-reveal.is-visible" y gana igual, dejando el
+   contenido en opacity:0 si el IntersectionObserver de assets/lb-ui.js no
+   llega a añadir "is-in" a tiempo (p.ej. cuando IntersectionObserver no
+   dispara: pestaña en segundo plano, algunos entornos de test/preview).
+   Esta regla sube la especificidad para que CUALQUIERA de los dos
+   mecanismos (is-in o is-visible) revele el contenido — nunca se queda
+   invisible. Ver contrato: ".lb-reveal: visible por defecto SIEMPRE". */
+html.lb-js:not(.lb-reduced-motion) .lb-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Red de seguridad adicional, solo CSS: si ningún IntersectionObserver llega
+   a disparar (algunos entornos de test/preview lo dejan "pending" para
+   siempre; el único salvavidas compartido es el setTimeout de 2500ms de
+   site.js), esta animación fuerza la visibilidad a los 900ms sin depender
+   de ninguna clase JS. No compite con la transición normal: si ya se reveló
+   antes, llega al mismo valor final sin efecto visible. */
+html.lb-js:not(.lb-reduced-motion) .lb-reveal {
+  animation: pg-calc-reveal-safety 0s linear .9s forwards;
+}
+@keyframes pg-calc-reveal-safety { to { opacity: 1; transform: none; } }
+
+.calc-hero { padding-bottom: 8px; }
+
+.calc-tip {
+  background: var(--mist);
+  border: 1.5px dashed var(--kraft-deep);
+  border-radius: var(--lb-radius-field);
+  padding: 20px 24px;
+  margin-top: 28px;
+}
+.calc-tip p { margin: 0; font-size: .95rem; line-height: 1.55; color: var(--ink-2); }
+.calc-tip strong { color: var(--ink); font-weight: 700; }
+
+/* ---------- Grid principal ---------- */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  .calc-grid { display: flex; flex-direction: column; }
+  .calc-aside { order: -1; }
+  .calc-panel { position: sticky; top: 12px; z-index: 10; padding: 18px 20px; }
+  .calc-panel-cajas { font-size: 40px; margin: 4px 0 2px; }
+  .calc-panel-disclaimer { display: none; }
+}
+
+/* ---------- Tarjetas (lista de categorías / bultos) ---------- */
+.calc-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--lb-radius-card);
+  padding: 10px 24px;
+  box-shadow: 0 1px 2px rgba(15,30,29,.05), 0 20px 48px -28px rgba(15,30,29,.20);
+}
+.bultos-card { margin-top: 22px; padding: 24px; }
+.bultos-card h3 { font-size: 1.1rem; margin-bottom: 4px; }
+.calc-card-hint { color: var(--ink-3); font-size: .85rem; margin-bottom: 16px; }
+
+.bultos-note {
+  margin-top: 18px; padding: 14px 16px;
+  background: var(--mist); border-radius: var(--lb-radius-field);
+  font-size: .85rem; color: var(--ink-2); line-height: 1.5;
+}
+.bultos-note a { color: var(--teal); font-weight: 700; }
+.bultos-note a:hover { color: var(--teal-deep); }
+
+/* ---------- Categoría colapsable (generada por el script inline) ---------- */
+.cat { border-bottom: 1px solid var(--line); }
+.cat:last-child { border-bottom: none; }
+.cat-head {
+  width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 2px; background: none; cursor: pointer; text-align: left;
+}
+.cat-head:hover .cat-title { color: var(--teal); }
+.cat-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--ink); transition: color 160ms var(--lb-ease); }
+.cat-meta { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .04em; color: var(--kraft-deep); display: flex; gap: 12px; align-items: center; }
+.cat-chevron { color: var(--ink-3); transition: transform 220ms var(--lb-ease); }
+.cat.open .cat-chevron { transform: rotate(180deg); }
+.cat-body { display: none; padding: 4px 0 20px; }
+.cat.open .cat-body { display: block; }
+
+.item-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 16px;
+  padding: 11px 0; align-items: center;
+  border-top: 1px dashed var(--line);
+}
+.cat-body .item-row:first-child { border-top: none; }
+.item-label { display: flex; flex-direction: column; gap: 2px; }
+.item-label strong { font-weight: 600; font-size: .92rem; color: var(--ink); }
+.item-label span { font-size: 11.5px; color: var(--ink-3); font-family: var(--font-mono); }
+
+/* Bultos: fila del script con [data-bulto] usa la misma .item-row */
+#bultoList .item-row { border-top: 1px dashed var(--line); }
+#bultoList .item-row:first-child { border-top: none; }
+
+/* ---------- Stepper (generado por el script; nombre de clase intocable) ---------- */
+.stepper {
+  display: inline-flex; align-items: center;
+  border: 1.5px solid var(--line-strong); border-radius: var(--lb-radius-pill);
+  background: var(--paper); overflow: hidden;
+}
+.stepper button {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  color: var(--ink-2); font-size: 15px; font-weight: 600; cursor: pointer; touch-action: manipulation; user-select: none;
+}
+.stepper button:hover:not(:disabled) { background: var(--mist); color: var(--ink); }
+.stepper button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.stepper button:disabled { opacity: .3; cursor: not-allowed; }
+.stepper .val {
+  min-width: 30px; text-align: center; font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+@media (max-width: 760px) {
+  .stepper button { width: 44px; height: 44px; }
+  .stepper .val { min-width: 40px; }
+}
+
+/* ==========================================================================
+   Panel de resultado — reutiliza el "panel de total oscuro" del sistema
+   (mismas clases que .lb-calc__panel*, injerto de prototipo C) con datos
+   propios de esta calculadora por objetos.
+   ========================================================================== */
+.calc-panel {
+  position: sticky; top: 90px;
+}
+.calc-panel-eyebrow {
+  display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 6px;
+}
+.calc-panel-cajas {
+  font-family: var(--font-display); font-weight: 800; font-size: 56px; line-height: 1;
+  letter-spacing: -0.03em; color: #fff; margin: 6px 0 2px; font-variant-numeric: tabular-nums;
+}
+.calc-panel-cajas-unit { font-family: var(--font-body); font-weight: 600; font-size: 15px; color: rgba(255,255,255,.6); margin-left: 8px; }
+.calc-panel-cajas-note { font-size: 12.5px; color: rgba(255,255,255,.5); margin: 0 0 18px; }
+
+.calc-panel .lb-calc__breakdown { border-top: 1px solid rgba(255,255,255,.14); padding-top: 14px; }
+.calc-panel-bultos-lbl {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.5); margin: 6px 0 2px;
+}
+.calc-panel .lb-calc__breakdown .line span:last-child { color: rgba(255,255,255,.85); }
+
+/* .out-bultos-line: generada por el script inline dentro de #outBultosLines */
+.out-bultos-line {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 5px 0; font-size: .84rem; font-family: var(--font-mono);
+  color: rgba(255,255,255,.68);
+}
+.out-bultos-line span:last-child { color: rgba(255,255,255,.9); }
+
+/* Los spans .precio-anterior/.precio-actual/.precio-promo vienen del sistema
+   antiguo (mecanismo de oferta auto-caducable, ver assets/styles.css) — aquí
+   se ajustan solo de color para que se lean bien sobre el panel oscuro. */
+.calc-panel .precio-actual { color: #fff; font-weight: 800; }
+.calc-panel .precio-anterior { color: rgba(255,255,255,.45); }
+.calc-panel .precio-promo { color: rgba(255,255,255,.5); }
+
+.calc-panel-disclaimer { font-size: 11.5px; color: rgba(255,255,255,.45); line-height: 1.5; margin-top: 14px; }
+
+.calc-cap-warn {
+  margin-top: 16px; padding: 16px;
+  background: rgba(200,150,90,.16); border: 1px solid var(--kraft);
+  border-radius: var(--lb-radius-field);
+  font-size: .88rem; color: rgba(255,255,255,.9); line-height: 1.55;
+}
+.calc-cap-warn strong { color: #fff; }
+.calc-cap-warn a { margin-top: 12px; }
+
+.calc-panel .lb-calc__cta .lb-link-arrow { color: rgba(255,255,255,.7); }
+.calc-panel .lb-calc__cta .lb-link-arrow:hover { color: #fff; }

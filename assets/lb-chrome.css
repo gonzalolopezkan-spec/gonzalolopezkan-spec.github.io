@@ -1,0 +1,323 @@
+/* ==========================================================================
+   LetsBoxIt — lb-chrome.css
+   Cabecera, pie, selector de idioma y sistema de aparición (sistema v2,
+   dirección A "La etiqueta"). Dueño exclusivo: agente CHROME.
+   NO toca assets/styles.css — usa los tokens de 06-sistema-v2.md con
+   valores de respaldo por si esa hoja aún no los define.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0) Red de seguridad mínima para los huecos de partials.js
+   Si partials.js no carga, [data-nav]/[data-footer] se quedan como <div>
+   vacíos: sin contenido no ocupan alto, así que no hace falta más CSS aquí.
+   -------------------------------------------------------------------------- */
+[data-nav], [data-footer] { display: block; }
+
+/* --------------------------------------------------------------------------
+   1) Fallback de componentes compartidos (lb-container, lb-btn)
+   Estos los define el otro agente en assets/styles.css a partir de
+   06-sistema-v2.md. Con :where() la especificidad queda a 0, así que en
+   cuanto esa hoja los defina de verdad, sus reglas ganan siempre a estas
+   — esto es solo para que la cabecera/pie no se vean rotos mientras tanto.
+   -------------------------------------------------------------------------- */
+:where(.lb-container) {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: clamp(20px, 4vw, 40px);
+  padding-right: clamp(20px, 4vw, 40px);
+}
+:where(.lb-btn) {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 20px; border-radius: 999px;
+  font-family: var(--font-body, 'Figtree', sans-serif);
+  font-weight: 600; font-size: 0.95rem; white-space: nowrap;
+  transition: transform .18s var(--ease-out, cubic-bezier(.16,1,.3,1)), background-color .18s var(--ease-out, cubic-bezier(.16,1,.3,1)), color .18s var(--ease-out, cubic-bezier(.16,1,.3,1)), border-color .18s var(--ease-out, cubic-bezier(.16,1,.3,1));
+}
+:where(.lb-btn--primary) { background: var(--teal, #0E7C7A); color: #fff; }
+:where(.lb-btn--primary:hover) { background: var(--teal-deep, #0E5F5E); }
+:where(.lb-btn--ghost) { background: transparent; color: var(--teal, #0E7C7A); border: 1.5px solid var(--line-strong, rgba(15,30,29,.18)); }
+:where(.lb-btn--ghost:hover) { border-color: var(--teal, #0E7C7A); }
+:where(.lb-btn--light) { background: #fff; color: var(--ink, #0F1E1D); }
+:where(.lb-btn--sm) { min-height: 38px; padding: 0 14px; font-size: 0.85rem; }
+
+/* Red de seguridad SOLO dentro de la cabecera/pie: mayor especificidad que
+   .lb-btn a secas, así que si assets/styles.css aún no ha publicado el
+   sistema de botones, el CTA de reservar/WhatsApp nunca se ve roto. */
+.lb-nav-cta .lb-btn, .lb-nav-mobile-cta .lb-btn, .lb-footer .lb-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border-radius: 999px;
+  font-family: var(--font-body, 'Figtree', sans-serif);
+  font-weight: 600; font-size: 0.92rem; white-space: nowrap;
+}
+.lb-nav-cta .lb-btn--primary, .lb-nav-mobile-cta .lb-btn--primary {
+  background: var(--teal, #0E7C7A); color: #fff;
+}
+.lb-nav-cta .lb-btn--primary:hover, .lb-nav-mobile-cta .lb-btn--primary:hover { background: var(--teal-deep, #0E5F5E); }
+.lb-nav-cta .lb-btn--ghost, .lb-nav-mobile-cta .lb-btn--ghost {
+  background: transparent; color: var(--teal, #0E7C7A); border: 1.5px solid var(--line-strong, rgba(15,30,29,.18));
+}
+.lb-nav-cta .lb-btn--ghost:hover, .lb-nav-mobile-cta .lb-btn--ghost:hover { border-color: var(--teal, #0E7C7A); }
+
+/* --------------------------------------------------------------------------
+   2) Sistema de aparición (reveal) — solo el antiguo .reveal/.reveal-stagger/
+   .reveal-on-scroll. El componente .lb-reveal vive ENTERO en
+   assets/styles.css (capa v2, sección "Sistema de aparición degradable"):
+   ahí se define opacity/transform y la clase .is-in que lo revela. Antes
+   este fichero volvía a definir .lb-reveal con su propia clase .is-visible,
+   en conflicto con site.js/lb-ui.js corriendo DOS IntersectionObserver
+   distintos sobre los mismos elementos — carrera que a veces dejaba
+   bloques (p.ej. el checklist de precios.html) con opacity:0 para siempre
+   porque un observer marcaba .is-visible pero el otro no llegaba a marcar
+   .is-in. Arreglado 2026-09: una sola fuente de verdad (styles.css + .is-in,
+   ver assets/site.js). Aquí solo queda el respaldo sin JS de los .reveal
+   antiguos. */
+html:not(.lb-js) .reveal,
+html:not(.lb-js) .reveal-stagger > *,
+html:not(.lb-js) .reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   3) Cabecera — lb-nav
+   ========================================================================== */
+.lb-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, .86);
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s var(--ease-out, cubic-bezier(.16,1,.3,1)), box-shadow .2s var(--ease-out, cubic-bezier(.16,1,.3,1));
+}
+.lb-nav--scrolled {
+  border-bottom-color: var(--line, rgba(15,30,29,.10));
+  box-shadow: 0 8px 24px -18px rgba(15,30,29,.35);
+}
+.lb-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+}
+.lb-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display, 'Bricolage Grotesque', sans-serif);
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--ink, #0F1E1D);
+  min-height: 44px;
+  flex: none;
+}
+.lb-brand-mark { color: var(--teal, #0E7C7A); display: inline-flex; }
+
+.lb-nav-links { display: none; list-style: none; margin: 0; padding: 0; }
+.lb-nav-mobile-menu a, .lb-nav-mobile-cta { text-decoration: none; }
+
+/* Cabecera responsive (arreglo 2026-09: "Reservar con 20 €" se salía de la
+   pantalla entre ~900 y 1180px — 6 enlaces + selector ES·EN·FR + WhatsApp +
+   CTA no caben con los gaps "cómodos"). Tres tramos:
+   - < 1040px: menú hamburguesa (ver también líneas ~218 y ~260).
+   - 1040-1239px: nav horizontal pero con gaps reducidos y WhatsApp en
+     icono (sin texto) — es lo justo para que quepa.
+   - >= 1240px: gaps y WhatsApp con texto "de sobra" (diseño original). */
+@media (min-width: 1040px) {
+  .lb-nav-inner { gap: 10px; }
+  .lb-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 auto 0 18px;
+  }
+  .lb-nav-links > li { position: relative; }
+  .lb-nav-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    font-family: var(--font-body, 'Figtree', sans-serif);
+    font-size: .93rem;
+    font-weight: 500;
+    color: var(--ink-2, #3B4B4A);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .lb-nav-links a:hover, .lb-nav-links a.active { color: var(--teal, #0E7C7A); }
+
+  .lb-dropdown-trigger { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+  .lb-dropdown-trigger.active a { color: var(--teal, #0E7C7A); }
+  .lb-dropdown-arrow { font-size: .7em; color: var(--ink-3, #5B6A69); transition: transform .18s var(--ease-out, cubic-bezier(.16,1,.3,1)); }
+
+  .lb-dropdown-menu {
+    list-style: none; margin: 0; padding: 8px;
+    position: absolute; top: calc(100% + 10px); left: 0;
+    min-width: 190px;
+    background: var(--paper, #fff);
+    border: 1px solid var(--line, rgba(15,30,29,.10));
+    border-radius: 14px;
+    box-shadow: 0 20px 44px -20px rgba(15,30,29,.35);
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity .16s var(--ease-out, cubic-bezier(.16,1,.3,1)), transform .16s var(--ease-out, cubic-bezier(.16,1,.3,1)), visibility .16s;
+  }
+  .lb-dropdown-menu a { min-height: 40px; padding: 0 10px; border-radius: 8px; width: 100%; }
+  .lb-dropdown-menu a:hover { background: var(--mist, #F2F6F5); }
+  .lb-nav-dropdown:hover .lb-dropdown-menu,
+  .lb-nav-dropdown:focus-within .lb-dropdown-menu,
+  .lb-nav-dropdown.open .lb-dropdown-menu {
+    opacity: 1; visibility: visible; transform: none;
+  }
+  .lb-nav-dropdown:hover .lb-dropdown-arrow,
+  .lb-nav-dropdown.open .lb-dropdown-arrow { transform: rotate(180deg); }
+}
+@media (min-width: 1240px) {
+  .lb-nav-inner { gap: 16px; }
+  .lb-nav-links { gap: 26px; margin-left: 32px; }
+}
+
+.lb-nav-cta { display: none; align-items: center; gap: 6px; }
+.lb-btn-label { display: none; }
+@media (min-width: 1040px) {
+  .lb-nav-cta { display: flex; }
+  /* WhatsApp solo icono en el tramo compacto: con texto no cabe. */
+  .lb-nav-cta .lb-btn--ghost { width: 44px; padding: 0; }
+}
+@media (min-width: 1240px) {
+  .lb-nav-cta { gap: 10px; }
+  .lb-btn-label { display: inline; }
+  .lb-nav-cta .lb-btn--ghost { width: auto; padding: 0 18px; }
+}
+
+/* Selector de idioma (compartido cabecera/pie) */
+.lb-lang-switch {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 12px; letter-spacing: .05em;
+}
+.lb-lang-switch .lb-lang-opt {
+  color: var(--ink-3, #5B6A69); text-decoration: none;
+  padding: 4px 5px; border-radius: 4px; min-height: 28px; display: inline-flex; align-items: center;
+  transition: color .18s var(--ease-out, cubic-bezier(.16,1,.3,1));
+}
+.lb-lang-switch .lb-lang-opt:hover { color: var(--ink, #0F1E1D); }
+.lb-lang-switch .lb-lang-opt.active { color: var(--teal, #0E7C7A); font-weight: 600; }
+.lb-lang-switch .lb-lang-sep { color: var(--line-strong, rgba(15,30,29,.18)); }
+.lb-lang-switch-mobile { margin-top: 22px; justify-content: center; font-size: 14px; }
+.lb-lang-switch-mobile .lb-lang-opt { min-height: 44px; padding: 0 10px; }
+@media (max-width: 1039px) { .lb-lang-switch-desktop { display: none; } }
+
+/* Hamburguesa (móvil) */
+.lb-nav-hamburger {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; width: 44px; height: 44px; border-radius: 10px;
+  border: 0; background: transparent; cursor: pointer; flex: none;
+}
+.lb-nav-hamburger:hover { background: var(--mist, #F2F6F5); }
+.lb-nav-hamburger span {
+  display: block; width: 20px; height: 2px; border-radius: 2px;
+  background: var(--ink, #0F1E1D);
+  transition: transform .2s var(--ease-out, cubic-bezier(.16,1,.3,1)), opacity .2s var(--ease-out, cubic-bezier(.16,1,.3,1));
+}
+.lb-nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.lb-nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.lb-nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (min-width: 1040px) { .lb-nav-hamburger { display: none; } }
+
+/* Menú móvil a pantalla completa */
+.lb-nav-mobile-menu {
+  display: none;
+  position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  background: var(--paper, #fff);
+  padding: 8px clamp(20px, 4vw, 40px) 32px;
+  overflow-x: hidden; overflow-y: auto;
+  border-top: 1px solid var(--line, rgba(15,30,29,.10));
+  flex-direction: column;
+}
+/* z-index > 9990: si no, el aviso de cookies (assets/cookie-consent.css,
+   z-index 9990, fichero que no se toca) tapa el selector de idioma del
+   menú abierto en móvil. Solo mientras está abierto — al cerrarse
+   (.open se quita) vuelve al z-index base de arriba, sin dejar nada tapado. */
+.lb-nav-mobile-menu.open { display: flex; z-index: 9991; }
+.lb-nav-mobile-menu > a {
+  display: flex; align-items: center; min-height: 56px;
+  font-family: var(--font-body, 'Figtree', sans-serif);
+  font-size: 1.1rem; font-weight: 600; color: var(--ink, #0F1E1D);
+  border-bottom: 1px solid var(--line, rgba(15,30,29,.10));
+}
+.lb-nav-mobile-accordion { border-bottom: 1px solid var(--line, rgba(15,30,29,.10)); }
+.lb-nav-mobile-accordion-btn {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  min-height: 56px; background: none; border: 0; cursor: pointer;
+  font-family: var(--font-body, 'Figtree', sans-serif);
+  font-size: 1.1rem; font-weight: 600; color: var(--ink, #0F1E1D);
+  padding: 0;
+}
+.lb-nav-mobile-accordion-btn .lb-dropdown-arrow { transition: transform .18s var(--ease-out, cubic-bezier(.16,1,.3,1)); }
+.lb-nav-mobile-accordion-btn.accordion-open .lb-dropdown-arrow { transform: rotate(180deg); }
+.lb-nav-mobile-subitems {
+  max-height: 0; overflow: hidden;
+  transition: max-height .22s var(--ease-out, cubic-bezier(.16,1,.3,1));
+}
+.lb-nav-mobile-subitems.accordion-open { max-height: 200px; }
+.lb-nav-mobile-subitems a {
+  display: flex; align-items: center; min-height: 48px; padding-left: 12px;
+  font-family: var(--font-body, 'Figtree', sans-serif);
+  font-size: 1rem; color: var(--ink-2, #3B4B4A);
+}
+.lb-nav-mobile-cta { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+.lb-nav-mobile-cta .lb-btn { width: 100%; }
+@media (min-width: 1040px) { .lb-nav-mobile-menu { display: none !important; } }
+
+/* ==========================================================================
+   4) Pie — lb-footer
+   ========================================================================== */
+.lb-footer {
+  background: var(--ink, #0F1E1D);
+  color: rgba(255,255,255,.82);
+}
+.lb-footer-tape {
+  height: 6px;
+  background: repeating-linear-gradient(-45deg, var(--kraft, #C8965A) 0 10px, var(--kraft-deep, #8A5A22) 10px 20px);
+}
+.lb-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  padding: 48px 0 32px;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+@media (min-width: 860px) {
+  .lb-footer-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr; }
+}
+.lb-footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.lb-footer-brand .lb-brand { color: #fff; }
+.lb-footer-brand .lb-brand-mark { color: var(--teal, #1BA2A0); }
+.lb-footer-brand p { margin: 0; color: rgba(255,255,255,.62); font-size: .92rem; max-width: 34ch; line-height: 1.5; }
+.lb-footer-contact { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; }
+.lb-footer-contact a { color: rgba(255,255,255,.82); font-size: .92rem; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.lb-footer-contact a:hover { color: var(--teal, #1BA2A0); }
+
+.lb-footer-col h6 {
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); margin: 0 0 6px; font-weight: 500;
+}
+.lb-footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.lb-footer-col a {
+  font-size: .92rem; color: rgba(255,255,255,.8); text-decoration: none;
+  min-height: 44px; min-width: 44px; display: inline-flex; align-items: center;
+}
+.lb-footer-col a:hover { color: var(--teal, #1BA2A0); }
+.lb-footer-cookie-cfg { font-size: 12px !important; opacity: .7; }
+
+.lb-footer-bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  padding: 22px 0;
+  font-size: .82rem; color: rgba(255,255,255,.45);
+}
+.lb-muted { color: rgba(255,255,255,.45); }

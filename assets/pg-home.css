@@ -1,0 +1,122 @@
+/* ==========================================================================
+   LetsBoxIt — assets/pg-home.css
+   Disposición propia de la home (index.html). Los átomos y componentes
+   lb-* (botones, etiqueta, trust, calculadora, planb, checklist, tiers,
+   equipo, tape-band, novedad, reviews, faq, cta-band…) viven ya en
+   assets/styles.css — aquí SOLO la maquetación específica de esta página
+   (rejillas, separaciones, alguna variante de foto).
+   ========================================================================== */
+
+/* ---------- 1. Hero ---------- */
+.home-hero { padding-top: clamp(40px, 6vw, 72px); overflow: hidden; }
+
+.home-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 44px;
+  align-items: center;
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+@media (min-width: 960px) {
+  .home-hero-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; }
+  /* "Del resto nos encargamos." (línea de acento) ocupaba dos líneas a
+     1280-1440px: la columna del hero mide ~545px con el H1 al tope de su
+     clamp (92px) y el .58em del componente no cabía en una línea. Se reduce
+     solo aquí (no en el componente lb-h1/.lb-accent global) para no tocar
+     otras páginas que usan .lb-accent con frases más cortas. */
+  .home-hero-copy .lb-h1 .lb-accent { font-size: .5em; }
+}
+
+.home-hero-copy .lb-lead { margin: 22px 0 28px; }
+
+.home-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+
+.home-guarantees {
+  display: flex; flex-direction: column; gap: 9px;
+  margin: 0; padding: 0; list-style: none;
+}
+.home-guarantees li {
+  position: relative; padding-left: 22px;
+  font-size: .92rem; color: var(--ink-2);
+}
+.home-guarantees li::before {
+  content: ""; position: absolute; left: 0; top: 7px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal);
+}
+
+.home-hero-visual { display: flex; justify-content: center; }
+
+/* ---------- 2. Cómo funciona ---------- */
+.home-how-photos {
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+  margin: 44px 0 8px;
+}
+@media (min-width: 700px) { .home-how-photos { grid-template-columns: repeat(3, 1fr); } }
+
+.home-ph-jose img { object-position: 68% 45%; }
+.home-ph-almacen img { object-position: 50% 35%; }
+.home-ph-furgo img { object-position: 50% 40%; }
+
+.home-section-cta { margin-top: 32px; }
+
+/* ---------- 3. Precio ---------- */
+/* La calculadora (.lb-calc) ya lista los bultos sueltos con su precio fila
+   a fila, así que aquí no se repite esa lista en texto — solo se separa
+   de las tarjetas de tramo con el mismo ritmo (~32-48px) que usaba antes
+   el párrafo que ocupaba este hueco. */
+#precio .lb-tiers { margin-bottom: 40px; }
+
+.home-checklist-wrap { margin: 44px 0 4px; }
+
+.home-rate-cta { margin-top: 28px; }
+
+/* ---------- 4. Plan B ---------- */
+.home-planb-alts { margin-top: 4px; }
+
+/* ---------- 5. Familias ---------- */
+.home-cta-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;
+  margin-top: 36px;
+}
+
+/* ---------- 6. Equipo ---------- */
+/* .lb-team-copy es la única sección eyebrow+h2+párrafo sin su propio
+   margin-bottom de h2 en assets/styles.css (a diferencia de .lb-novedad h2
+   y .lb-cta-band h2, que sí lo traen) — se añade aquí para que el
+   descendente de la "g" de "estudiantes" no toque el párrafo siguiente. */
+.lb-team-copy h2, .lb-team-copy .lb-h2 { margin-bottom: 16px; }
+
+/* ---------- 7. Residencias ---------- */
+.home-res-copy { max-width: 640px; margin-bottom: 40px; }
+.home-res-links {
+  display: flex; flex-wrap: wrap; gap: 10px 28px;
+  margin-top: 28px;
+}
+
+/* ---------- 9. Reseñas ---------- */
+.home-reviews-link { margin-top: 30px; }
+
+/* ---------- 10. FAQ ---------- */
+.home-faq-link { margin-top: 28px; }
+
+/* ---------- arreglo de jerarquía de encabezados ---------- */
+/* lb-checklist/lb-alt-card están pensados en el contrato con h4/h5, pero en
+   esta página van justo tras un h2/h3 (sin nivel intermedio) — así que aquí
+   se ajusta la ETIQUETA semántica (h3/h4) sin tocar assets/styles.css,
+   reproduciendo el mismo estilo visual que ya definía el componente para
+   evitar el salto de nivel que marca el audit (saltosH). */
+.lb-checklist h3 {
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  letter-spacing: normal; margin: 0 0 12px;
+}
+.lb-alt-card h3, .lb-alt-card h4 {
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  letter-spacing: normal; margin: 0 0 8px;
+}
+
+/* ---------- ritmo general: separación tras cabeceras de sección ---------- */
+@media (max-width: 640px) {
+  .home-hero-ctas { flex-direction: column; align-items: stretch; }
+  .home-hero-ctas .lb-btn { width: 100%; text-align: center; }
+}

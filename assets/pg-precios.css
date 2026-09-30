@@ -1,0 +1,106 @@
+/* ===== pg-precios — CSS propio de precios.html (sistema v2) =====
+   Usa solo tokens y utilidades ya definidos en assets/styles.css.
+   No se toca assets/styles.css ni ningún otro fichero compartido. */
+
+/* ---- Hero: ticket de precio (momento visual propio, misma familia
+   etiqueta/cinta/sello que el resto del sistema, distinto de la
+   etiqueta de envío del hero de la home) ---- */
+.pg-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .pg-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; }
+}
+.pg-hero-visual { display: flex; justify-content: center; padding: 10px 0 26px; }
+.pg-price-ticket {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: var(--paper);
+  border: 1.5px dashed var(--kraft-deep);
+  border-radius: var(--lb-radius-card);
+  padding: 30px 26px 40px;
+  box-shadow: 0 28px 60px -26px rgba(15, 30, 29, .28), 0 2px 0 var(--line);
+}
+.pg-price-ticket__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--kraft-deep);
+  margin: 0 0 18px;
+}
+.pg-price-ticket__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: .95rem;
+  color: var(--ink-2);
+  padding: 6px 0;
+}
+.pg-price-ticket__row span:last-child { font-family: var(--font-mono); color: var(--ink); font-weight: 500; }
+.pg-price-ticket__divider { border: 0; border-top: 1.5px dashed var(--kraft-deep); opacity: .55; margin: 8px 0 14px; }
+.pg-price-ticket__total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.pg-price-ticket__total span:first-child { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.pg-price-ticket__total span:last-child { font-family: var(--font-display); font-weight: 800; font-size: 2.15rem; letter-spacing: -0.02em; color: var(--teal-deep); }
+.pg-price-ticket__note { font-size: 12px; color: var(--ink-3); margin: 12px 0 0; line-height: 1.5; padding-right: 70px; }
+.pg-price-ticket__stamp { position: absolute; right: -12px; bottom: -18px; rotate: 8deg; }
+.pg-price-ticket .lb-tape { z-index: 2; }
+.pg-price-ticket .lb-tape--tl { top: -11px; left: 30px; rotate: -6deg; }
+.pg-price-ticket .lb-tape--br { display: none; }
+
+/* ---- Tramos: línea descriptiva extra bajo cada tarjeta lb-tier ---- */
+.pg-tier-tag { margin: 10px 0 0; font-size: .82rem; line-height: 1.4; color: var(--ink-3); }
+.lb-tier--featured .pg-tier-tag { color: var(--kraft-deep); }
+.pg-tramos-note { margin-top: 22px; font-size: .92rem; color: var(--ink-2); max-width: 62ch; }
+
+/* ---- Bultos sueltos ---- */
+.pg-bultos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 760px) { .pg-bultos-grid { grid-template-columns: 1fr 1fr; } }
+.pg-bulto-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--lb-radius-field);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pg-bulto-card__lbl { font-weight: 600; font-size: .95rem; color: var(--ink); }
+.pg-bulto-card__precio { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; color: var(--teal-deep); }
+.pg-bultos-note { margin-top: 18px; font-size: .92rem; color: var(--ink-2); }
+.pg-bultos-note a { color: var(--teal); font-weight: 600; }
+.pg-bultos-note a:hover { text-decoration: underline; }
+.pg-bultos-extra {
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: var(--mist);
+  border-radius: var(--lb-radius-field);
+  font-size: .92rem;
+  color: var(--ink-2);
+  display: block;
+}
+.pg-bultos-extra strong { color: var(--ink); }
+
+/* ---- Cómo se paga: pasos + nota de cancelación ---- */
+.pg-cancel-note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: var(--teal-tint);
+  border-radius: var(--lb-radius-field);
+  font-size: .92rem;
+  color: var(--ink-2);
+  display: block;
+}
+.pg-cancel-note strong { color: var(--ink); }
+
+/* ---- Calculadora: enmarca el componente lb-calc dentro de la página ---- */
+.pg-calc-wrap { margin-top: 8px; }
+
+/* ---- Checklist: h3 en vez de h4 (esta sección no tiene h3 intermedio,
+   así que h2 → h4 saltaría un nivel). Mismo aspecto que .lb-checklist h4
+   en assets/styles.css, sin tocar ese fichero. ---- */
+.pg-checklist h3 { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin: 0 0 12px; }
